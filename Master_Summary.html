@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Summary - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --neon-yellow: #ffeb3b;
+            --neon-orange: #ff6600;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--text-main);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-magenta);
+            margin-bottom: 50px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-magenta); }
+            to { text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 50px var(--neon-magenta), 0 0 70px #fff; }
+        }
+
+        .intro-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(0, 243, 255, 0.1);
+            margin-bottom: 50px;
+            font-family: var(--font-ar);
+            font-size: 1.3rem;
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .lecture-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lecture-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 243, 255, 0.3);
+            border-color: var(--neon-cyan);
+            z-index: 10;
+        }
+
+        .lecture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .lecture-card:hover::before {
+            left: 100%;
+        }
+
+        .lec-number {
+            font-size: 3rem;
+            font-weight: 700;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            opacity: 0.1;
+            color: var(--text-main);
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        .lecture-card:hover .lec-number {
+            opacity: 0.3;
+            color: var(--neon-magenta);
+        }
+
+        .lec-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .lec-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            border: 1px solid;
+        }
+
+        .tag.grammar { color: var(--neon-magenta); border-color: rgba(255, 0, 255, 0.3); }
+        .tag.vocab { color: var(--neon-green); border-color: rgba(0, 255, 102, 0.3); }
+        .tag.writing { color: var(--neon-yellow); border-color: rgba(255, 235, 59, 0.3); }
+
+        .lec-desc {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .action-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.2), rgba(255, 0, 255, 0.2));
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: calc(100% - 40px);
+            text-align: center;
+        }
+
+        .lecture-card:hover .action-button {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 255, 0.4));
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 80px 0 40px;
+            animation: pulse-sig 2s infinite alternate;
+        }
+
+        @keyframes pulse-sig {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Level 2 Master Hub</h1>
+
+    <div class="intro-card">
+        أهلاً بك يا هندسة في <span class="highlight" style="font-family: var(--font-en);">Master Hub</span>! 🚀<br>
+        هنا متجمع كل شغل الكورس (10 محاضرات) متصمم ومترتب  .<br>
+        كل محاضرة مشروحة وفيها جداول كلمات، قواعد، وـ 15 سؤال MCQ متحلين وجاهزين.<br>
+        دوس على أي محاضرة تحت عشان تفتحها وتراجع. بالتوفيق في الفاينال! 🔥
+    </div>
+
+    <div class="grid-container">
+        
+        <!-- Lecture 1 -->
+        <a href="Lec_1.html" class="lecture-card" target="_blank">
+            <div class="lec-number">01</div>
+            <div class="lec-title">Friends & Phrasal Verbs</div>
+            <div class="lec-tags">
+                <span class="tag vocab">Acquaintances</span>
+                <span class="tag grammar">Phrasal Verbs</span>
+            </div>
+            <div class="lec-desc">
+                شرح الأفعال المركبة (زي Look up to و Take after) والفرق بين الـ Close friend والـ Acquaintance.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 2 -->
+        <a href="Lec_2.html" class="lecture-card" target="_blank">
+            <div class="lec-number">02</div>
+            <div class="lec-title">Writing Process</div>
+            <div class="lec-tags">
+                <span class="tag writing">Essay Structure</span>
+                <span class="tag vocab">Brainstorming</span>
+            </div>
+            <div class="lec-desc">
+                خطوات كتابة المقال الأكاديمي زي المهندسين (Pre-writing, Drafting, Editing, Publishing).
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 3 -->
+        <a href="Lec_3.html" class="lecture-card" target="_blank">
+            <div class="lec-number">03</div>
+            <div class="lec-title">Medical Advice</div>
+            <div class="lec-tags">
+                <span class="tag vocab">Symptoms</span>
+                <span class="tag grammar">Should / Ought to</span>
+            </div>
+            <div class="lec-desc">
+                مصطلحات الطب والمرض (Food poisoning, Bruise) وإزاي تدي نصيحة بـ Should أو Had better.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 4 -->
+        <a href="Lec_4.html" class="lecture-card" target="_blank">
+            <div class="lec-number">04</div>
+            <div class="lec-title">Data Reporting</div>
+            <div class="lec-tags">
+                <span class="tag writing">Chart Analysis</span>
+                <span class="tag vocab">Percentages</span>
+            </div>
+            <div class="lec-desc">
+                إزاي تقرأ وتوصف الرسوم البيانية (Bar Charts) وتستخدم مصطلحات زي The vast majority أو A tiny minority.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 5 -->
+        <a href="Lec_5.html" class="lecture-card" target="_blank">
+            <div class="lec-number">05</div>
+            <div class="lec-title">Gerunds vs Infinitives</div>
+            <div class="lec-tags">
+                <span class="tag grammar">Verb Patterns</span>
+                <span class="tag writing">Argumentative Essays</span>
+            </div>
+            <div class="lec-desc">
+                القاعدة الذهبية للأفعال اللي بييجي وراها (ing) أو (to + inf) أو المصدر سادة من غير إضافات.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 6 -->
+        <a href="Lec_6.html" class="lecture-card" target="_blank">
+            <div class="lec-number">06</div>
+            <div class="lec-title">Weather & Future Tense</div>
+            <div class="lec-tags">
+                <span class="tag vocab">Environment</span>
+                <span class="tag grammar">Will vs Going to</span>
+            </div>
+            <div class="lec-desc">
+                مفردات البيئة والطقس (Blizzard, Drought) والفرق بين خطة المستقبل (Going to) والقرار السريع (Will).
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 7 -->
+        <a href="Lec_7.html" class="lecture-card" target="_blank">
+            <div class="lec-number">07</div>
+            <div class="lec-title">Conditionals</div>
+            <div class="lec-tags">
+                <span class="tag grammar">Zero & First Conditional</span>
+                <span class="tag writing">Paragraph Structure</span>
+            </div>
+            <div class="lec-desc">
+                قاعدة الـ If-Condition في الإنجليزي للحالة الصفرية (الحقائق) والحالة الأولى (الاحتمالات) وبناء فقرة سليمة.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 8 -->
+        <a href="Lec_8.html" class="lecture-card" target="_blank">
+            <div class="lec-number">08</div>
+            <div class="lec-title">Sports & Articles</div>
+            <div class="lec-tags">
+                <span class="tag vocab">Play / Do / Go</span>
+                <span class="tag grammar">A, An, The, Zero Article</span>
+            </div>
+            <div class="lec-desc">
+                أفعال الرياضة (إمتى نستخدم Play أو Do أو Go) وقواعد أدوات التعريف والتنكير اللي بتلخبط.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 9 -->
+        <a href="Lec_9.html" class="lecture-card" target="_blank">
+            <div class="lec-number">09</div>
+            <div class="lec-title">Urban Life & Relative Clauses</div>
+            <div class="lec-tags">
+                <span class="tag vocab">Public Buildings</span>
+                <span class="tag grammar">Who, Which, Where, Whose</span>
+            </div>
+            <div class="lec-desc">
+                حياة المدينة والمباني العامة (Town Hall, Leisure Center) وضمائر الوصل زي الـ Pointers في البرمجة.
+            </div>
+            <div class="action-button">Review Lecture</div>
+        </a>
+
+        <!-- Lecture 10 -->
+        <a href="Lec_10.html" class="lecture-card" target="_blank" style="border-color: var(--neon-orange); box-shadow: 0 0 15px rgba(255, 102, 0, 0.2);">
+            <div class="lec-number" style="color: var(--neon-orange); opacity: 0.2;">10</div>
+            <div class="lec-title" style="color: var(--neon-orange);">Final Revision & Mega Quiz</div>
+            <div class="lec-tags">
+                <span class="tag vocab" style="color: var(--neon-orange); border-color: rgba(255, 102, 0, 0.3);">Communication</span>
+                <span class="tag grammar" style="color: var(--neon-magenta); border-color: rgba(255, 0, 255, 0.3);">All Grammar</span>
+            </div>
+            <div class="lec-desc">
+                محاضرة المراجعة النهائية! بتلم المنهج كله في 20 سؤال شاملين، مع مفردات التواصل اللفظي ولغة الجسد.
+            </div>
+            <div class="action-button" style="background: linear-gradient(90deg, rgba(255, 102, 0, 0.2), rgba(255, 0, 255, 0.2)); border-color: var(--neon-orange);">Review Lecture</div>
+        </a>
+
+        <!-- Master Quiz -->
+        <a href="Master_Quiz.html" class="lecture-card" target="_blank" style="border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 243, 255, 0.3); grid-column: 1 / -1; text-align: center;">
+            <div class="lec-number" style="color: var(--neon-cyan); opacity: 0.1; font-size: 5rem; top: -10px; right: 20px;">100</div>
+            <div class="lec-title" style="color: var(--neon-cyan); font-size: 2rem; border-bottom: none; margin-bottom: 5px;">🔥 THE 100-QUESTION MASTER QUIZ 🔥</div>
+            <div class="lec-tags" style="justify-content: center;">
+                <span class="tag grammar" style="color: #fff; background: var(--neon-magenta); border-color: var(--neon-magenta); font-weight: bold;">Ultimate Final Exam</span>
+            </div>
+            <div class="lec-desc" style="text-align: center; font-size: 1.2rem; color: #fff;">
+                امتحان نهائي شامل تفاعلي لتقييم مستواك في المنهج بالكامل. 100 سؤال بيغطوا كل قواعد وكلمات الـ 10 محاضرات!
+            </div>
+            <div class="action-button" style="background: linear-gradient(90deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 255, 0.4)); font-size: 1.2rem; padding: 15px;">START EXAM SIMULATOR</div>
+        </a>
+
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 3 - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            margin-top: 50px;
+            border-bottom: 2px solid var(--neon-magenta);
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.ar-cell {
+            font-family: var(--font-ar);
+            text-align: right;
+            direction: rtl;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        .explanation {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-family: var(--font-en);
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-green);
+            padding: 0 5px;
+        }
+
+        .example-box {
+            background: rgba(0, 255, 102, 0.05);
+            border-left: 4px solid var(--neon-green);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 10px 10px 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .example-box .ar-text {
+            color: var(--text-muted);
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            margin-top: 5px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        /* Timeline CSS (Included for consistency) */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0, 243, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--neon-cyan);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            min-width: 150px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border-top: 3px solid var(--neon-magenta);
+            transition: all 0.3s;
+        }
+
+        .timeline-step:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            border-top: 3px solid var(--neon-cyan);
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: '➔';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-magenta);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-magenta);
+            z-index: 10;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            color: var(--neon-cyan);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .step-desc-ar {
+            font-family: var(--font-ar);
+            font-size: 0.9rem;
+            color: var(--neon-green);
+            margin-top: 5px;
+            direction: rtl;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .q-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-cyan);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .q-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .options li:hover {
+            background: rgba(255, 0, 255, 0.1);
+            border-color: var(--neon-magenta);
+            transform: translateX(5px);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+        }
+
+        .answer-reveal {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            color: var(--neon-cyan);
+        }
+
+        .capsule {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(255, 0, 255, 0.2);
+            margin-top: 50px;
+        }
+
+        .capsule h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-family: var(--font-ar);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 60px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lecture 3: Health & Illness</h1>
+
+    <div class="card">
+        <h2>Vocabulary Glossary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Word (English)</th>
+                    <th style="text-align:right">Translation (Arabic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Allergy</td><td class="ar-cell">حساسية</td></tr>
+                <tr><td>Asthma</td><td class="ar-cell">ربو (ضيق تنفس)</td></tr>
+                <tr><td>Flu / Influenza</td><td class="ar-cell">إنفلونزا</td></tr>
+                <tr><td>Common Cold</td><td class="ar-cell">نزلة برد</td></tr>
+                <tr><td>Food Poisoning</td><td class="ar-cell">تسمم غذائي</td></tr>
+                <tr><td>Heart Attack</td><td class="ar-cell">أزمة قلبية</td></tr>
+                <tr><td>Infection</td><td class="ar-cell">عدوى / التهاب</td></tr>
+                <tr><td>Stress</td><td class="ar-cell">ضغط نفسي / إجهاد</td></tr>
+                <tr><td>Cough</td><td class="ar-cell">سعال / كحة</td></tr>
+                <tr><td>Headache</td><td class="ar-cell">صداع</td></tr>
+                <tr><td>Runny Nose</td><td class="ar-cell">رشح / سيلان الأنف</td></tr>
+                <tr><td>Sore Throat</td><td class="ar-cell">احتقان الحلق</td></tr>
+                <tr><td>Stomachache</td><td class="ar-cell">ألم في المعدة</td></tr>
+                <tr><td>Temperature (Fever)</td><td class="ar-cell">حمى / ارتفاع الحرارة</td></tr>
+                <tr><td>Bruise</td><td class="ar-cell">كدمة</td></tr>
+                <tr><td>Burn</td><td class="ar-cell">حرق</td></tr>
+                <tr><td>Antibiotics</td><td class="ar-cell">مضادات حيوية</td></tr>
+                <tr><td>Prescription</td><td class="ar-cell">روشتة طبية</td></tr>
+                <tr><td>Surgery</td><td class="ar-cell">جراحة</td></tr>
+                <tr><td>Vaccination</td><td class="ar-cell">تطعيم / لقاح</td></tr>
+                <tr><td>Symptoms <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">أعراض المرض</td></tr>
+                <tr><td>Diagnosis <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">تشخيص المرض</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Verbs & Conjugations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Base Form</th>
+                    <th>Past Simple</th>
+                    <th>Past Participle</th>
+                    <th style="text-align:right">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Suffer</td><td>Suffered</td><td>Suffered</td><td class="ar-cell">يعاني</td></tr>
+                <tr><td>Infect</td><td>Infected</td><td>Infected</td><td class="ar-cell">يعدي</td></tr>
+                <tr><td>Cough</td><td>Coughed</td><td>Coughed</td><td class="ar-cell">يسعل</td></tr>
+                <tr><td>Bleed</td><td>Bled</td><td>Bled</td><td class="ar-cell">ينزف</td></tr>
+                <tr><td>Prescribe</td><td>Prescribed</td><td>Prescribed</td><td class="ar-cell">يصف دواء</td></tr>
+                <tr><td>Prevent</td><td>Prevented</td><td>Prevented</td><td class="ar-cell">يقي / يمنع</td></tr>
+                <tr><td>Treat</td><td>Treated</td><td>Treated</td><td class="ar-cell">يعالج</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Grammar Rules: Describing Illness (Eng Zain Explanation)</h2>
+        <div class="explanation">
+            بص يا بشمهندس، المحاضرة دي مليانة مصطلحات طبية، بس الأهم هو إزاي توظفها في جملة. لما تحب توصف مرض أو عرض عندك، بنستخدم فعل <span class="highlight">Have / Has got</span> أو بنقول إننا بنعاني من كذا <span class="highlight">Suffer from</span>. ولما تحب تدي نصيحة طبية أو روشتة لزميلك بنستخدم <span class="highlight">Should / Shouldn't</span>.
+        </div>
+
+        <table style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Rule / Pattern</th>
+                    <th>Example</th>
+                    <th style="text-align:right">الترجمة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">Have / Has + Illness</td>
+                    <td>I <span class="highlight">have</span> a terrible headache.</td>
+                    <td class="ar-cell">عندي صداع فظيع. (بنستخدمها للأمراض العارضة)</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">Suffer from + Disease</td>
+                    <td>He <span class="highlight">suffers from</span> asthma.</td>
+                    <td class="ar-cell">هو يعاني من الربو. (للأمراض المزمنة أو القوية)</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-green); font-weight:bold;">Should + Infinitive</td>
+                    <td>You <span class="highlight">should</span> take some antibiotics.</td>
+                    <td class="ar-cell">لازم تاخد شوية مضادات حيوية. (للنصيحة الطبية)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>The Medical Process Timeline</h2>
+        <div class="explanation">
+            الدورة الطبية العادية لأي مريض بتمشي في 4 خطوات أساسية، ركز في ترتيبهم:
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="step-icon">🦠</div>
+                <div class="step-title">1. Infection</div>
+                <div class="step-desc">Getting the illness or virus.</div>
+                <div class="step-desc-ar">الإصابة بالعدوى أو المرض.</div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-icon">🤒</div>
+                <div class="step-title">2. Symptoms</div>
+                <div class="step-desc">Cough, pain, headache, etc.</div>
+                <div class="step-desc-ar">ظهور الأعراض زي الكحة والألم.</div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-icon">👨‍⚕️</div>
+                <div class="step-title">3. Prescription</div>
+                <div class="step-desc">Doctor advises medicine.</div>
+                <div class="step-desc-ar">الدكتور يكتبلك الروشتة.</div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-icon">💊</div>
+                <div class="step-title">4. Treatment</div>
+                <div class="step-desc">Taking antibiotics or surgery.</div>
+                <div class="step-desc-ar">العلاج والشفاء (Cure).</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>MCQ Quiz</h2>
+        
+        <div class="question-block">
+            <div class="q-ar">الكثير من الناس لديهم ______ غذائي، مما يعني أنه يجب عليهم الحذر فيما يأكلون.</div>
+            <div class="q-en">1. Many people have a food _____, which means they have to be careful about what they eat.</div>
+            <ul class="options">
+                <li>A) asthma <span class="opt-ar">ربو</span></li>
+                <li>B) allergy <span class="opt-ar">حساسية</span></li>
+                <li>C) infection <span class="opt-ar">عدوى</span></li>
+                <li>D) cold <span class="opt-ar">برد</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">الحياة الحديثة تجعل الناس يقلقون كثيراً، مما قد يؤدي إلى _____.</div>
+            <div class="q-en">2. Modern life can make people worry a lot, which can lead to _____.</div>
+            <ul class="options">
+                <li>A) stress <span class="opt-ar">ضغط نفسي</span></li>
+                <li>B) infection <span class="opt-ar">عدوى</span></li>
+                <li>C) flu <span class="opt-ar">إنفلونزا</span></li>
+                <li>D) allergy <span class="opt-ar">حساسية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">مرض خطير يسببه البكتيريا في شيء تأكله.</div>
+            <div class="q-en">3. _____ is a serious illness which is caused by bacteria in something you eat.</div>
+            <ul class="options">
+                <li>A) Cold <span class="opt-ar">برد</span></li>
+                <li>B) Flu <span class="opt-ar">إنفلونزا</span></li>
+                <li>C) Food poisoning <span class="opt-ar">تسمم غذائي</span></li>
+                <li>D) Heart attack <span class="opt-ar">أزمة قلبية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">الأشخاص الذين يعانون من _____ غالباً ما يجدون صعوبة في التنفس.</div>
+            <div class="q-en">4. People with _____ often have difficulty breathing.</div>
+            <ul class="options">
+                <li>A) asthma <span class="opt-ar">ربو</span></li>
+                <li>B) infection <span class="opt-ar">عدوى</span></li>
+                <li>C) stomachache <span class="opt-ar">ألم بالمعدة</span></li>
+                <li>D) toothache <span class="opt-ar">ألم أسنان</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إذا كنت مريضاً، اغسل يديك باستمرار لتمنع انتشار _____ للآخرين.</div>
+            <div class="q-en">5. If you are ill, wash your hands frequently to stop the _____ spreading to other people.</div>
+            <ul class="options">
+                <li>A) injury <span class="opt-ar">إصابة</span></li>
+                <li>B) allergy <span class="opt-ar">حساسية</span></li>
+                <li>C) infection <span class="opt-ar">عدوى</span></li>
+                <li>D) burn <span class="opt-ar">حرق</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">مرض شائع يجعلك تشعر بالتعب الشديد والضعف.</div>
+            <div class="q-en">6. _____ is a common illness which makes you feel very tired and weak.</div>
+            <ul class="options">
+                <li>A) Cough <span class="opt-ar">سعال</span></li>
+                <li>B) Flu <span class="opt-ar">إنفلونزا</span></li>
+                <li>C) Toothache <span class="opt-ar">ألم أسنان</span></li>
+                <li>D) Bruise <span class="opt-ar">كدمة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إذا أكلت كثيراً، قد تصاب بـ _____ وتشعر بالغثيان.</div>
+            <div class="q-en">7. If you eat too much, you could get a _____ and feel sick.</div>
+            <ul class="options">
+                <li>A) headache <span class="opt-ar">صداع</span></li>
+                <li>B) sore throat <span class="opt-ar">احتقان بالحلق</span></li>
+                <li>C) stomachache <span class="opt-ar">ألم بالمعدة</span></li>
+                <li>D) runny nose <span class="opt-ar">رشح</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أجد من المؤلم التحدث حالياً لأنني مصاب بـ _____.</div>
+            <div class="q-en">8. I'm finding it very painful to speak at the moment because I have a _____.</div>
+            <ul class="options">
+                <li>A) stomachache <span class="opt-ar">ألم بالمعدة</span></li>
+                <li>B) sore throat <span class="opt-ar">احتقان الحلق</span></li>
+                <li>C) headache <span class="opt-ar">صداع</span></li>
+                <li>D) toothache <span class="opt-ar">ألم أسنان</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">العمل على الكمبيوتر لفترة طويلة مضر لعينيك وقد يسبب لك _____.</div>
+            <div class="q-en">9. Working at a computer for too long is bad for your eyes and can give you a _____.</div>
+            <ul class="options">
+                <li>A) stomachache <span class="opt-ar">ألم بالمعدة</span></li>
+                <li>B) sore throat <span class="opt-ar">احتقان بالحلق</span></li>
+                <li>C) headache <span class="opt-ar">صداع</span></li>
+                <li>D) temperature <span class="opt-ar">حرارة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">زميلي في السكن لديه _____ سيئة - لم أستطع النوم ليلة أمس بسبب الصوت العالي!</div>
+            <div class="q-en">10. My flatmate has a bad _____ - I couldn't sleep last night because the noise was so loud!</div>
+            <ul class="options">
+                <li>A) cough <span class="opt-ar">سعال</span></li>
+                <li>B) bruise <span class="opt-ar">كدمة</span></li>
+                <li>C) burn <span class="opt-ar">حرق</span></li>
+                <li>D) runny nose <span class="opt-ar">رشح</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إذا كان لديك _____ في صدرك، اذهب للطبيب فوراً - قد يكون شيئاً خطيراً.</div>
+            <div class="q-en">11. If you have a _____ in your chest, see a doctor immediately - it could be something serious.</div>
+            <ul class="options">
+                <li>A) temperature <span class="opt-ar">حرارة</span></li>
+                <li>B) pain <span class="opt-ar">ألم</span></li>
+                <li>C) sore throat <span class="opt-ar">احتقان بالحلق</span></li>
+                <li>D) toothache <span class="opt-ar">ألم أسنان</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ورقة يكتب فيها الطبيب الدواء الذي يجب أن تتناوله.</div>
+            <div class="q-en">12. A piece of paper where a doctor writes the medicine you should have.</div>
+            <ul class="options">
+                <li>A) prescription <span class="opt-ar">روشتة</span></li>
+                <li>B) surgery <span class="opt-ar">جراحة</span></li>
+                <li>C) vaccination <span class="opt-ar">تطعيم</span></li>
+                <li>D) prevention <span class="opt-ar">وقاية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">عملية طبية يقوم فيها الطبيب بفتح جسمك لإصلاح أو إزالة شيء.</div>
+            <div class="q-en">13. A medical operation in which a doctor cuts open your body to repair or remove something.</div>
+            <ul class="options">
+                <li>A) treatment <span class="opt-ar">علاج</span></li>
+                <li>B) cure <span class="opt-ar">شفاء</span></li>
+                <li>C) surgery <span class="opt-ar">جراحة</span></li>
+                <li>D) prevention <span class="opt-ar">وقاية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أدوية تُستخدم لقتل البكتيريا والعدوى.</div>
+            <div class="q-en">14. Drugs that are used to kill bacteria and infections.</div>
+            <ul class="options">
+                <li>A) vaccines <span class="opt-ar">لقاحات</span></li>
+                <li>B) antibiotics <span class="opt-ar">مضادات حيوية</span></li>
+                <li>C) surgery <span class="opt-ar">جراحة</span></li>
+                <li>D) cures <span class="opt-ar">أدوية شافية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">شيء يُعطى للشخص لحمايته من مرض (الوقاية).</div>
+            <div class="q-en">15. Something given to a person to protect them from a disease.</div>
+            <ul class="options">
+                <li>A) antibiotics <span class="opt-ar">مضادات حيوية</span></li>
+                <li>B) vaccination <span class="opt-ar">تطعيم</span></li>
+                <li>C) surgery <span class="opt-ar">جراحة</span></li>
+                <li>D) prescription <span class="opt-ar">روشتة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+    </div>
+
+    <div class="capsule">
+        <h3>💊 Quick Summary Capsule 💊</h3>
+        <p style="color:var(--text-main); font-size:1.1rem; line-height: 1.8;">
+            <span class="highlight">Have a cold / headache:</span> للتعبير عن المرض العارض <br>
+            <span class="highlight">Suffer from asthma:</span> للتعبير عن المرض المزمن <br>
+            <span class="highlight">Antibiotics:</span> مضادات حيوية تقتل البكتيريا <br><br>
+            <strong>The Cycle:</strong> 
+            <span class="highlight" style="color:var(--neon-magenta)">Infection ➔ Symptoms ➔ Prescription ➔ Cure</span>
+        </p>
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 4 - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            margin-top: 50px;
+            border-bottom: 2px solid var(--neon-magenta);
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.ar-cell {
+            font-family: var(--font-ar);
+            text-align: right;
+            direction: rtl;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        .explanation {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-family: var(--font-en);
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-green);
+            padding: 0 5px;
+        }
+
+        .example-box {
+            background: rgba(0, 255, 102, 0.05);
+            border-left: 4px solid var(--neon-green);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 10px 10px 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .example-box .ar-text {
+            color: var(--text-muted);
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            margin-top: 5px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .chart-bar {
+            height: 20px;
+            border-radius: 10px;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-weight: bold;
+            color: #000;
+            font-size: 0.9rem;
+        }
+
+        .bar-read { background: linear-gradient(90deg, var(--neon-cyan), #0088ff); }
+        .bar-speak { background: linear-gradient(90deg, var(--neon-magenta), #aa00ff); }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .q-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-cyan);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .q-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .options li:hover {
+            background: rgba(255, 0, 255, 0.1);
+            border-color: var(--neon-magenta);
+            transform: translateX(5px);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+        }
+
+        .answer-reveal {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            color: var(--neon-cyan);
+        }
+
+        .capsule {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(255, 0, 255, 0.2);
+            margin-top: 50px;
+        }
+
+        .capsule h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-family: var(--font-ar);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 60px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lecture 4: Reading & Data Reporting</h1>
+
+    <div class="card">
+        <h2>Vocabulary Glossary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Word (English)</th>
+                    <th style="text-align:right">Translation (Arabic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Ancient</td><td class="ar-cell">قديم / أثري</td></tr>
+                <tr><td>Obsessed</td><td class="ar-cell">مهووس</td></tr>
+                <tr><td>Tomb</td><td class="ar-cell">قبر / مقبرة</td></tr>
+                <tr><td>Celebration</td><td class="ar-cell">احتفال</td></tr>
+                <tr><td>Guest</td><td class="ar-cell">ضيف</td></tr>
+                <tr><td>Host</td><td class="ar-cell">مضيف (صاحب الدعوة)</td></tr>
+                <tr><td>Necklace</td><td class="ar-cell">عقد / قلادة</td></tr>
+                <tr><td>Instrument</td><td class="ar-cell">آلة (موسيقية)</td></tr>
+                <tr><td>Pleasure</td><td class="ar-cell">متعة / سرور</td></tr>
+                <tr><td>Chart</td><td class="ar-cell">رسم بياني</td></tr>
+                <tr><td>Summary</td><td class="ar-cell">ملخص</td></tr>
+                <tr><td>Percentage</td><td class="ar-cell">نسبة مئوية</td></tr>
+                <tr><td>Proportion</td><td class="ar-cell">نسبة / حصة</td></tr>
+                <tr><td>Feature</td><td class="ar-cell">ميزة / خاصية</td></tr>
+                <tr><td>Extracurricular <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">أنشطة لا منهجية (خارج المنهج)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Verbs & Conjugations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Base Form</th>
+                    <th>Past Simple</th>
+                    <th>Past Participle</th>
+                    <th style="text-align:right">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Celebrate</td><td>Celebrated</td><td>Celebrated</td><td class="ar-cell">يحتفل</td></tr>
+                <tr><td>Imagine</td><td>Imagined</td><td>Imagined</td><td class="ar-cell">يتخيل</td></tr>
+                <tr><td>Invite</td><td>Invited</td><td>Invited</td><td class="ar-cell">يدعو</td></tr>
+                <tr><td>Serve</td><td>Served</td><td>Served</td><td class="ar-cell">يُقدم (طعام أو خدمة)</td></tr>
+                <tr><td>Summarize</td><td>Summarized</td><td>Summarized</td><td class="ar-cell">يُلخص</td></tr>
+                <tr><td>Represent</td><td>Represented</td><td>Represented</td><td class="ar-cell">يمثل / يعبر عن</td></tr>
+                <tr><td>Identify</td><td>Identified</td><td>Identified</td><td class="ar-cell">يُحدد / يتعرف على</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Grammar & Skills: Data Reporting (Eng Zain Explanation)</h2>
+        <div class="explanation">
+            بص يا بشمهندس، المحاضرة دي بتعلمك مهارتين مهمين جداً. الأولى هي إزاي تقرأ قطعة وتطلع الـ Main Idea (الفكرة الرئيسية). التانية والأهم، إزاي تقرأ وتوصف رسم بياني (<span class="highlight">Chart</span>) زي المهندسين بالظبط! عشان توصف داتا صح في الإنجليزي (زي سؤال IELTS Task 1)، لازم تستخدم مصطلحات دقيقة للمقارنة والنسب المئوية.
+        </div>
+
+        <table style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Data Reporting Phrase</th>
+                    <th>Example Match (From Chart)</th>
+                    <th style="text-align:right">المعنى الهندسي (بالعربي)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">The largest percentage</td>
+                    <td><span class="highlight">57%</span> (Almost never speak)</td>
+                    <td class="ar-cell">أكبر نسبة مئوية (الأغلبية).</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">The smallest percentage</td>
+                    <td><span class="highlight">5%</span> (Speak everyday)</td>
+                    <td class="ar-cell">أصغر نسبة مئوية (الأقلية).</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-green); font-weight:bold;">Over half</td>
+                    <td><span class="highlight">54%</span> (Almost never read)</td>
+                    <td class="ar-cell">أكثر من النصف (معدية الـ 50%).</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">The same proportion</td>
+                    <td><span class="highlight">18%</span> in both Reading & Speaking</td>
+                    <td class="ar-cell">نفس النسبة / نفس الحصة بالظبط.</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">Slightly fewer</td>
+                    <td><span class="highlight">20% vs 21%</span></td>
+                    <td class="ar-cell">أقل بنسبة طفيفة جداً (فرق بسيط).</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Data Visualization: Japanese Students' English Use</h2>
+        <div class="explanation">
+            ده إعادة بناء للرسم البياني المفقود في المحاضرة. بيقارن بين استخدام الطلاب اليابانيين للإنجليزي في القراءة (Reading) والتحدث (Speaking) بره الفصل:
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Frequency</th>
+                    <th>Reading Use</th>
+                    <th>Speaking Use</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>(Almost) never <br><span style="font-size:0.8em; color:var(--text-muted);">أبداً تقريباً</span></td>
+                    <td>
+                        <div class="chart-bar bar-read" style="width: 54%;">54%</div>
+                    </td>
+                    <td>
+                        <div class="chart-bar bar-speak" style="width: 57%;">57%</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Once a week or less <br><span style="font-size:0.8em; color:var(--text-muted);">مرة أسبوعياً أو أقل</span></td>
+                    <td>
+                        <div class="chart-bar bar-read" style="width: 21%;">21%</div>
+                    </td>
+                    <td>
+                        <div class="chart-bar bar-speak" style="width: 20%;">20%</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Twice a week or more <br><span style="font-size:0.8em; color:var(--text-muted);">مرتين أسبوعياً أو أكثر</span></td>
+                    <td>
+                        <div class="chart-bar bar-read" style="width: 18%;">18%</div>
+                    </td>
+                    <td>
+                        <div class="chart-bar bar-speak" style="width: 18%;">18%</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>(Almost) everyday <br><span style="font-size:0.8em; color:var(--text-muted);">يومياً تقريباً</span></td>
+                    <td>
+                        <div class="chart-bar bar-read" style="width: 7%;">7%</div>
+                    </td>
+                    <td>
+                        <div class="chart-bar bar-speak" style="width: 5%;">5%</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>MCQ Quiz</h2>
+        
+        <div class="question-block">
+            <div class="q-ar">أي فقرة من نص الفراعنة تركز على الطعام في الحفلات في مصر القديمة؟</div>
+            <div class="q-en">1. Which paragraph focuses on the food at parties in Ancient Egypt?</div>
+            <ul class="options">
+                <li>A) Paragraph B <span class="opt-ar">الفقرة B</span></li>
+                <li>B) Paragraph C <span class="opt-ar">الفقرة C</span></li>
+                <li>C) Paragraph D <span class="opt-ar">الفقرة D</span></li>
+                <li>D) Paragraph E <span class="opt-ar">الفقرة E</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي فقرة تشرح كيف نعرف عن الاحتفالات في مصر القديمة (من خلال رسومات المقابر)؟</div>
+            <div class="q-en">2. Which paragraph explains how we know about celebrations in Ancient Egypt?</div>
+            <ul class="options">
+                <li>A) Paragraph A <span class="opt-ar">الفقرة A</span></li>
+                <li>B) Paragraph C <span class="opt-ar">الفقرة C</span></li>
+                <li>C) Paragraph F <span class="opt-ar">الفقرة F</span></li>
+                <li>D) Paragraph D <span class="opt-ar">الفقرة D</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي فقرة تتعلق بشكل أساسي بالموسيقى والرقص في الحفلات؟</div>
+            <div class="q-en">3. Which paragraph is mainly about music and dancing at parties?</div>
+            <ul class="options">
+                <li>A) Paragraph C <span class="opt-ar">الفقرة C</span></li>
+                <li>B) Paragraph E <span class="opt-ar">الفقرة E</span></li>
+                <li>C) Paragraph F <span class="opt-ar">الفقرة F</span></li>
+                <li>D) Paragraph A <span class="opt-ar">الفقرة A</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي فقرة تتحدث بالتحديد عن الحفلات عندما يموت شخص ما؟</div>
+            <div class="q-en">4. Which paragraph talks particularly about parties when someone dies?</div>
+            <ul class="options">
+                <li>A) Paragraph A <span class="opt-ar">الفقرة A</span></li>
+                <li>B) Paragraph D <span class="opt-ar">الفقرة D</span></li>
+                <li>C) Paragraph E <span class="opt-ar">الفقرة E</span></li>
+                <li>D) Paragraph F <span class="opt-ar">الفقرة F</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: D</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي فقرة تصف ما يحدث عندما يصل الضيوف لأول مرة إلى الحفلة؟</div>
+            <div class="q-en">5. Which paragraph describes what happens when guests first arrive at a party?</div>
+            <ul class="options">
+                <li>A) Paragraph B <span class="opt-ar">الفقرة B</span></li>
+                <li>B) Paragraph C <span class="opt-ar">الفقرة C</span></li>
+                <li>C) Paragraph D <span class="opt-ar">الفقرة D</span></li>
+                <li>D) Paragraph F <span class="opt-ar">الفقرة F</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما هو الموضوع الرئيسي للرسم البياني (Charts)؟</div>
+            <div class="q-en">6. What is the main topic of the charts?</div>
+            <ul class="options">
+                <li>A) How many Japanese students use English <span class="opt-ar">كم عدد الطلاب اليابانيين...</span></li>
+                <li>B) How well Japanese students use English <span class="opt-ar">ما مدى إجادة الطلاب...</span></li>
+                <li>C) How frequently Japanese university students use English <span class="opt-ar">مدى تكرار استخدام الطلاب اليابانيين للإنجليزية</span></li>
+                <li>D) Why Japanese students study English <span class="opt-ar">لماذا يدرسون الإنجليزية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">الرسوم البيانية تعطي معلومات تفصيلية أكثر عن ماذا؟</div>
+            <div class="q-en">7. What do the charts give more detailed information about?</div>
+            <ul class="options">
+                <li>A) Different language skills (Reading & Speaking) <span class="opt-ar">مهارات لغوية مختلفة</span></li>
+                <li>B) Different language levels <span class="opt-ar">مستويات لغوية مختلفة</span></li>
+                <li>C) Different courses studied <span class="opt-ar">مواد مختلفة مدروسة</span></li>
+                <li>D) Different levels of ability <span class="opt-ar">مستويات قدرة مختلفة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي اثنين مما يلي تحتاج لتضمينهما في إجابتك عند تلخيص الرسم البياني؟</div>
+            <div class="q-en">8. Which two do you need to include in your summary answer?</div>
+            <ul class="options">
+                <li>A) A summary of the main topic and some key information <span class="opt-ar">ملخص الموضوع والمعلومات الأساسية</span></li>
+                <li>B) Information about all the percentages <span class="opt-ar">معلومات عن كل النسب</span></li>
+                <li>C) Your personal opinion <span class="opt-ar">رأيك الشخصي</span></li>
+                <li>D) A new topic <span class="opt-ar">موضوع جديد</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تمثل نسبة 5% في الرسم البياني؟</div>
+            <div class="q-en">9. What does the 5% represent in the chart?</div>
+            <ul class="options">
+                <li>A) The largest percentage <span class="opt-ar">النسبة الأكبر</span></li>
+                <li>B) The smallest percentage (speak everyday) <span class="opt-ar">النسبة الأصغر (يتحدث يومياً)</span></li>
+                <li>C) Over half of the students <span class="opt-ar">أكثر من النصف</span></li>
+                <li>D) The same proportion <span class="opt-ar">نفس الحصة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تمثل نسبة 57% في الرسم البياني؟</div>
+            <div class="q-en">10. What does the 57% represent in the chart?</div>
+            <ul class="options">
+                <li>A) The smallest percentage <span class="opt-ar">النسبة الأصغر</span></li>
+                <li>B) The largest percentage (never speak) <span class="opt-ar">النسبة الأكبر (لا يتحدثون أبداً)</span></li>
+                <li>C) Slightly fewer students <span class="opt-ar">طلاب أقل بقليل</span></li>
+                <li>D) The same proportion <span class="opt-ar">نفس الحصة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تمثل النسبة 18% الموجودة في كلا الرسمين؟</div>
+            <div class="q-en">11. What does the 18% present in both charts represent?</div>
+            <ul class="options">
+                <li>A) The smallest percentage <span class="opt-ar">النسبة الأصغر</span></li>
+                <li>B) Over half of the students <span class="opt-ar">أكثر من النصف</span></li>
+                <li>C) The same proportion of students <span class="opt-ar">نفس الحصة من الطلاب</span></li>
+                <li>D) The largest percentage <span class="opt-ar">النسبة الأكبر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تمثل نسبة 54% (أكبر نسبة في رسم القراءة)؟</div>
+            <div class="q-en">12. What does 54% (the largest percentage in the first chart) represent?</div>
+            <ul class="options">
+                <li>A) Slightly fewer students <span class="opt-ar">طلاب أقل بقليل</span></li>
+                <li>B) The smallest percentage <span class="opt-ar">النسبة الأصغر</span></li>
+                <li>C) Over half of the students <span class="opt-ar">أكثر من نصف الطلاب</span></li>
+                <li>D) The same proportion <span class="opt-ar">نفس الحصة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تعني كلمتي 21% و 20% تقريباً عند مقارنتهما؟</div>
+            <div class="q-en">13. What do the percentages 21% and 20% represent when compared?</div>
+            <ul class="options">
+                <li>A) Slightly fewer Japanese university students <span class="opt-ar">طلاب يابانيون أقل بقليل</span></li>
+                <li>B) Over half of the students <span class="opt-ar">أكثر من النصف</span></li>
+                <li>C) The largest number <span class="opt-ar">العدد الأكبر</span></li>
+                <li>D) The smallest percentage <span class="opt-ar">النسبة الأصغر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">كيف تبدأ الجملة لتقديم المخططات؟</div>
+            <div class="q-en">14. How should you begin the sentence to introduce the charts?</div>
+            <ul class="options">
+                <li>A) I think the charts show... <span class="opt-ar">أعتقد أن المخططات تظهر...</span></li>
+                <li>B) The charts give information about... <span class="opt-ar">المخططات تعطي معلومات حول...</span></li>
+                <li>C) The ancient Egyptians... <span class="opt-ar">المصريون القدماء...</span></li>
+                <li>D) In my opinion... <span class="opt-ar">في رأيي...</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">بناءً على القطعة، الفراعنة كانوا يحبون المتعة ولم يكونوا مهووسين فقط بـ _____.</div>
+            <div class="q-en">15. Based on the reading, ancient Egyptians loved a good time and were not just obsessed with _____.</div>
+            <ul class="options">
+                <li>A) Food <span class="opt-ar">الطعام</span></li>
+                <li>B) Music <span class="opt-ar">الموسيقى</span></li>
+                <li>C) Death <span class="opt-ar">الموت</span></li>
+                <li>D) Farming <span class="opt-ar">الزراعة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+    </div>
+
+    <div class="capsule">
+        <h3>💊 Quick Summary Capsule 💊</h3>
+        <p style="color:var(--text-main); font-size:1.1rem; line-height: 1.8;">
+            <span class="highlight">Reading (Skimming):</span> Read for main ideas / Headings. <br>
+            <span class="highlight">Writing (Data Reporting):</span> Don't write all numbers! <br><br>
+            <strong>Chart Keywords:</strong> 
+            <span class="highlight" style="color:var(--neon-magenta)">Largest % | Smallest % | Over half | The same proportion</span>
+        </p>
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 2 - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            margin-top: 50px;
+            border-bottom: 2px solid var(--neon-magenta);
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.ar-cell {
+            font-family: var(--font-ar);
+            text-align: right;
+            direction: rtl;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        .explanation {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-family: var(--font-en);
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-green);
+            padding: 0 5px;
+        }
+
+        .example-box {
+            background: rgba(0, 255, 102, 0.05);
+            border-left: 4px solid var(--neon-green);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 10px 10px 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .example-box .ar-text {
+            color: var(--text-muted);
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            margin-top: 5px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        /* Timeline CSS for Writing Process */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0, 243, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--neon-cyan);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            min-width: 150px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border-top: 3px solid var(--neon-magenta);
+            transition: all 0.3s;
+        }
+
+        .timeline-step:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            border-top: 3px solid var(--neon-cyan);
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: '➔';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-magenta);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-magenta);
+            z-index: 10;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            color: var(--neon-cyan);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .step-desc-ar {
+            font-family: var(--font-ar);
+            font-size: 0.9rem;
+            color: var(--neon-green);
+            margin-top: 5px;
+            direction: rtl;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .q-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-cyan);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .q-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .options li:hover {
+            background: rgba(255, 0, 255, 0.1);
+            border-color: var(--neon-magenta);
+            transform: translateX(5px);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+        }
+
+        .answer-reveal {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            color: var(--neon-cyan);
+        }
+
+        .capsule {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(255, 0, 255, 0.2);
+            margin-top: 50px;
+        }
+
+        .capsule h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-family: var(--font-ar);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 60px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lecture 2: The Art of Writing</h1>
+
+    <div class="card">
+        <h2>Vocabulary Glossary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Word (English)</th>
+                    <th style="text-align:right">Translation (Arabic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Writing</td><td class="ar-cell">كتابة</td></tr>
+                <tr><td>Express</td><td class="ar-cell">يعبر عن</td></tr>
+                <tr><td>Communication</td><td class="ar-cell">تواصل</td></tr>
+                <tr><td>Essay</td><td class="ar-cell">مقال</td></tr>
+                <tr><td>Paragraph</td><td class="ar-cell">فقرة</td></tr>
+                <tr><td>Introduction</td><td class="ar-cell">مقدمة</td></tr>
+                <tr><td>Conclusion</td><td class="ar-cell">خاتمة / استنتاج</td></tr>
+                <tr><td>Coherence</td><td class="ar-cell">ترابط / تماسك الأفكار</td></tr>
+                <tr><td>Punctuation</td><td class="ar-cell">علامات الترقيم</td></tr>
+                <tr><td>Brainstorming</td><td class="ar-cell">عصف ذهني (توليد أفكار)</td></tr>
+                <tr><td>Proofreading</td><td class="ar-cell">تدقيق لغوي / مراجعة نهائية</td></tr>
+                <tr><td>Advantage</td><td class="ar-cell">ميزة / إيجابية</td></tr>
+                <tr><td>Disadvantage</td><td class="ar-cell">عيب / سلبية</td></tr>
+                <tr><td>Argumentative <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">جدلي</td></tr>
+                <tr><td>Persuasive <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">إقناعي</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Verbs & Conjugations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Base Form</th>
+                    <th>Past Simple</th>
+                    <th>Past Participle</th>
+                    <th style="text-align:right">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Write</td><td>Wrote</td><td>Written</td><td class="ar-cell">يكتب</td></tr>
+                <tr><td>Express</td><td>Expressed</td><td>Expressed</td><td class="ar-cell">يعبر</td></tr>
+                <tr><td>Introduce</td><td>Introduced</td><td>Introduced</td><td class="ar-cell">يُقَدِّم</td></tr>
+                <tr><td>Summarize</td><td>Summarized</td><td>Summarized</td><td class="ar-cell">يُلخص</td></tr>
+                <tr><td>Argue</td><td>Argued</td><td>Argued</td><td class="ar-cell">يجادل / يناقش</td></tr>
+                <tr><td>Edit</td><td>Edited</td><td>Edited</td><td class="ar-cell">يحرر / يعدل</td></tr>
+                <tr><td>Proofread</td><td>Proofread</td><td>Proofread</td><td class="ar-cell">يدقق لغوياً</td></tr>
+                <tr><td>Persuade</td><td>Persuaded</td><td>Persuaded</td><td class="ar-cell">يُقنع</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Grammar & Structure: The Essay (Eng Zain Explanation)</h2>
+        <div class="explanation">
+            بص يا بشمهندس، ركز معايا. المحاضرة دي مش جرامر عادي، دي بتعلمك إزاي تبني مقال (<span class="highlight">Essay</span>) زي ما بتبني عمارة بالظبط! الأساس بتاعك هو الـ <span class="highlight">Introduction</span>، والأدوار اللي في النص هي الـ <span class="highlight">Body</span>، والسطح والتشطيب هو الـ <span class="highlight">Conclusion</span>. عشان العمارة دي متقعش، لازم يكون في ترابط (<span class="highlight">Coherence</span>).
+        </div>
+
+        <table style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Essay Part</th>
+                    <th>What it does?</th>
+                    <th style="text-align:right">الشرح الهندسي (بالعربي)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">1. Introduction</td>
+                    <td>Introduce the topic, present the main idea.</td>
+                    <td class="ar-cell">المقدمة: بتقدم فيها الموضوع والفكرة الأساسية اللي هتبني عليها المقال كله.</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">2. Body Paragraphs</td>
+                    <td>Focus on 1-2 ideas. Provide examples & explanations.</td>
+                    <td class="ar-cell">صلب المقال: كل فقرة بتركز على فكرة وتشرحها بأمثلة. لازم تستخدم كلمات ربط عشان التماسك.</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-green); font-weight:bold;">3. Conclusion</td>
+                    <td>Summarize ideas, recap main points, final insights.</td>
+                    <td class="ar-cell">الخاتمة: بتلخص كل اللي قولته، وتدي توصياتك النهائية من غير ما تفتح مواضيع جديدة.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>The Writing Process Timeline</h2>
+        <div class="explanation">
+            عشان تسلم مشروع المقال صح، لازم تمشي على 4 خطوات في الـ <span class="highlight">Writing Process</span>، عاملة بالظبط زي الـ Software Development Life Cycle (SDLC): التخطيط، الكتابة، المراجعة، والتدقيق!
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="step-icon">🧠</div>
+                <div class="step-title">1. Pre-writing</div>
+                <div class="step-desc">Planning & Brainstorming ideas.</div>
+                <div class="step-desc-ar">التخطيط والعصف الذهني قبل ما تكتب حرف.</div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-icon">✍️</div>
+                <div class="step-title">2. Drafting</div>
+                <div class="step-desc">Writing the first version based on outline.</div>
+                <div class="step-desc-ar">كتابة المسودة الأولى بناءً على أفكارك.</div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-icon">🔄</div>
+                <div class="step-title">3. Revising</div>
+                <div class="step-desc">Reviewing and improving the content.</div>
+                <div class="step-desc-ar">مراجعة وتحسين المحتوى وترتيب الأفكار.</div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-icon">🔎</div>
+                <div class="step-title">4. Editing & Proofreading</div>
+                <div class="step-desc">Correcting grammar, punctuation & spelling.</div>
+                <div class="step-desc-ar">التدقيق اللغوي وتصليح الأخطاء الإملائية.</div>
+            </div>
+        </div>
+
+        <div class="example-box" style="margin-top: 30px;">
+            <div style="color:var(--neon-cyan); margin-bottom:10px;"><strong>Phrases for Advantages/Disadvantages:</strong></div>
+            <span class="highlight">One advantage is...</span>
+            <span class="highlight">The main disadvantage is...</span>
+            <span class="highlight">Another problem is...</span>
+            <div class="ar-text">ترجمة: إحدى المزايا هي... / العيب الرئيسي هو... / مشكلة أخرى هي...</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>MCQ Quiz</h2>
+        
+        <div class="question-block">
+            <div class="q-ar">ما هي الخطوة الأولى في عملية الكتابة؟</div>
+            <div class="q-en">1. What is the first step in the writing process?</div>
+            <ul class="options">
+                <li>A) Drafting <span class="opt-ar">صياغة المسودة</span></li>
+                <li>B) Pre-writing <span class="opt-ar">ما قبل الكتابة / التخطيط</span></li>
+                <li>C) Revising <span class="opt-ar">مراجعة</span></li>
+                <li>D) Proofreading <span class="opt-ar">تدقيق لغوي</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي جزء من المقال يقوم بتلخيص الأفكار؟</div>
+            <div class="q-en">2. Which part of the essay summarizes the ideas?</div>
+            <ul class="options">
+                <li>A) Introduction <span class="opt-ar">المقدمة</span></li>
+                <li>B) Body Paragraph <span class="opt-ar">فقرة صلب المقال</span></li>
+                <li>C) Conclusion <span class="opt-ar">الخاتمة</span></li>
+                <li>D) Drafting <span class="opt-ar">الصياغة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا يعني "Drafting"؟</div>
+            <div class="q-en">3. What does "Drafting" mean?</div>
+            <ul class="options">
+                <li>A) Reviewing the content <span class="opt-ar">مراجعة المحتوى</span></li>
+                <li>B) Writing the first version <span class="opt-ar">كتابة النسخة الأولى</span></li>
+                <li>C) Correcting grammar <span class="opt-ar">تصحيح القواعد</span></li>
+                <li>D) Planning ideas <span class="opt-ar">تخطيط الأفكار</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما هو المقال (Essay)؟</div>
+            <div class="q-en">4. What is an essay?</div>
+            <ul class="options">
+                <li>A) A piece of writing about a particular subject with the writer's opinions <span class="opt-ar">قطعة كتابية عن موضوع معين برأي الكاتب</span></li>
+                <li>B) A description of a personal experience only <span class="opt-ar">وصف لتجربة شخصية فقط</span></li>
+                <li>C) A poem <span class="opt-ar">قصيدة</span></li>
+                <li>D) A short story <span class="opt-ar">قصة قصيرة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">لمن قد نكتب مقالاً أكاديمياً؟</div>
+            <div class="q-en">5. Who might we write an essay for?</div>
+            <ul class="options">
+                <li>A) A friend <span class="opt-ar">صديق</span></li>
+                <li>B) A child <span class="opt-ar">طفل</span></li>
+                <li>C) A tutor or lecturer <span class="opt-ar">معيد أو محاضر</span></li>
+                <li>D) A relative <span class="opt-ar">قريب</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما هو الغرض من الـ Introduction (المقدمة)؟</div>
+            <div class="q-en">6. What is the purpose of the Introduction?</div>
+            <ul class="options">
+                <li>A) To conclude the essay <span class="opt-ar">لإنهاء المقال</span></li>
+                <li>B) To provide detailed examples <span class="opt-ar">لتقديم أمثلة تفصيلية</span></li>
+                <li>C) To introduce the topic and main idea <span class="opt-ar">لتقديم الموضوع والفكرة الرئيسية</span></li>
+                <li>D) To correct spelling <span class="opt-ar">لتصحيح الإملاء</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تفعل في مرحلة Editing & Proofreading؟</div>
+            <div class="q-en">7. What do you do in the Editing & Proofreading stage?</div>
+            <ul class="options">
+                <li>A) Brainstorm ideas <span class="opt-ar">عصف ذهني</span></li>
+                <li>B) Correct grammar, punctuation, and spelling <span class="opt-ar">تصحيح القواعد، الترقيم والإملاء</span></li>
+                <li>C) Write the first draft <span class="opt-ar">كتابة المسودة الأولى</span></li>
+                <li>D) Submit the assignment <span class="opt-ar">تسليم الواجب</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تعني كلمة "Coherence" في الكتابة؟</div>
+            <div class="q-en">8. What does "Coherence" mean in writing?</div>
+            <ul class="options">
+                <li>A) Using difficult vocabulary <span class="opt-ar">استخدام مفردات صعبة</span></li>
+                <li>B) Logical connection between ideas <span class="opt-ar">ترابط منطقي بين الأفكار</span></li>
+                <li>C) Writing a long conclusion <span class="opt-ar">كتابة خاتمة طويلة</span></li>
+                <li>D) Capitalizing letters <span class="opt-ar">تكبير الحروف</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي عبارة تستخدم لتقديم ميزة (إيجابية)؟</div>
+            <div class="q-en">9. Which phrase introduces an advantage?</div>
+            <ul class="options">
+                <li>A) One problem is... <span class="opt-ar">إحدى المشاكل هي...</span></li>
+                <li>B) The main disadvantage is... <span class="opt-ar">العيب الرئيسي هو...</span></li>
+                <li>C) Another disadvantage is... <span class="opt-ar">عيب آخر هو...</span></li>
+                <li>D) One advantage is... <span class="opt-ar">إحدى المزايا هي...</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: D</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما نوع الجمل الذي يجب استخدامه لضمان الوضوح (clarity)؟</div>
+            <div class="q-en">10. What type of sentences should be used for clarity?</div>
+            <ul class="options">
+                <li>A) Very long sentences <span class="opt-ar">جمل طويلة جداً</span></li>
+                <li>B) Complicated sentences <span class="opt-ar">جمل معقدة</span></li>
+                <li>C) Simple and short sentences <span class="opt-ar">جمل بسيطة وقصيرة</span></li>
+                <li>D) Sentences without punctuation <span class="opt-ar">جمل بدون علامات ترقيم</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تحتوي فقرة صلب الموضوع (Body)؟</div>
+            <div class="q-en">11. What does the Body paragraph contain?</div>
+            <ul class="options">
+                <li>A) Only the main idea <span class="opt-ar">الفكرة الرئيسية فقط</span></li>
+                <li>B) Examples and explanations for each point <span class="opt-ar">أمثلة وشروحات لكل نقطة</span></li>
+                <li>C) The final recommendations <span class="opt-ar">التوصيات النهائية</span></li>
+                <li>D) Brainstorming lists <span class="opt-ar">قوائم العصف الذهني</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إلى أي مرحلة ينتمي العصف الذهني (Brainstorming)؟</div>
+            <div class="q-en">12. What is Brainstorming a part of?</div>
+            <ul class="options">
+                <li>A) Editing <span class="opt-ar">تحرير</span></li>
+                <li>B) Drafting <span class="opt-ar">صياغة</span></li>
+                <li>C) Pre-writing <span class="opt-ar">ما قبل الكتابة</span></li>
+                <li>D) Publishing <span class="opt-ar">نشر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي علامة ترقيم تنهي الجملة؟</div>
+            <div class="q-en">13. Which punctuation mark ends a sentence?</div>
+            <ul class="options">
+                <li>A) Comma (,) <span class="opt-ar">فاصلة</span></li>
+                <li>B) Capital letter <span class="opt-ar">حرف كبير</span></li>
+                <li>C) Full stop (.) <span class="opt-ar">نقطة</span></li>
+                <li>D) Dash (-) <span class="opt-ar">شرطة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+    </div>
+
+    <div class="capsule">
+        <h3>💊 Quick Summary Capsule 💊</h3>
+        <p style="color:var(--text-main); font-size:1.1rem; line-height: 1.8;">
+            <span class="highlight">Introduction:</span> Introduce Topic <br>
+            <span class="highlight">Body:</span> Examples & Explanations <br>
+            <span class="highlight">Conclusion:</span> Summarize & Recap <br><br>
+            <strong>The 4 Steps:</strong> 
+            <span class="highlight" style="color:var(--neon-magenta)">Pre-write ➔ Draft ➔ Revise ➔ Edit</span>
+        </p>
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>

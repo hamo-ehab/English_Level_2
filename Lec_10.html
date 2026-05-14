@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 10 - Final Revision - Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --neon-yellow: #ffeb3b;
+            --neon-orange: #ff6600;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--neon-orange);
+            text-shadow: 0 0 10px var(--neon-orange), 0 0 20px var(--neon-orange);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            margin-top: 50px;
+            border-bottom: 2px solid var(--neon-cyan);
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-magenta);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: rgba(255, 0, 255, 0.1);
+            color: var(--neon-magenta);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.ar-cell {
+            font-family: var(--font-ar);
+            text-align: right;
+            direction: rtl;
+        }
+
+        tr:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+        }
+
+        .explanation {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-family: var(--font-en);
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-green);
+            padding: 0 5px;
+        }
+
+        .grammar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .grammar-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .grammar-box.magenta-box { border-color: var(--neon-magenta); }
+        .grammar-box.orange-box { border-color: var(--neon-orange); }
+
+        .grammar-box h3 {
+            color: var(--neon-cyan);
+            margin-top: 0;
+            text-transform: none;
+            text-align: left;
+        }
+        
+        .magenta-box h3 { color: var(--neon-magenta); }
+        .orange-box h3 { color: var(--neon-orange); }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .q-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-magenta);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .q-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .options li:hover {
+            background: rgba(255, 102, 0, 0.2);
+            border-color: var(--neon-orange);
+            transform: translateX(5px);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+        }
+
+        .answer-reveal {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            color: var(--neon-cyan);
+        }
+
+        .capsule {
+            background: linear-gradient(135deg, rgba(255, 102, 0, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--neon-orange);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.2), inset 0 0 20px rgba(255, 0, 255, 0.2);
+            margin-top: 50px;
+        }
+
+        .capsule h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-family: var(--font-ar);
+            text-shadow: 0 0 10px var(--neon-orange);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 60px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lecture 10: Final Revision & Communication</h1>
+
+    <div class="card">
+        <h2>Grammar & Concepts (Eng Zain Overview)</h2>
+        <div class="explanation">
+            بص يا هندسة، دي محاضرة الـ <span class="highlight">Final Revision</span> اللي بتلم المنهج كله في كبسولة. بس الأول، عندنا جزء جديد عن التواصل (Communication)، سواء بالتحدث زي المحاضرات والـ Presentations، أو بلغة الجسد (Body Language) زي إنك تهز رأسك أو تعلي صوتك. <br><br>
+            بعد كدا هندخل على "Mega Quiz" هيختبرك في الـ Conditionals، أفعال الـ Gerund والـ Infinitive، أدوات الـ Articles، وكل قواعد المنهج اللي فاتت!
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Vocabulary: Communication Verbs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Verb</th>
+                    <th style="text-align:right">Meaning / Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Argue</td><td class="ar-cell">يتجادل / يتخانق كلامياً</td></tr>
+                <tr><td>Promise</td><td class="ar-cell">يعد (يؤكد أنه سيفعل شيء)</td></tr>
+                <tr><td>Announce</td><td class="ar-cell">يعلن (بشكل رسمي عن خطط)</td></tr>
+                <tr><td>Inform</td><td class="ar-cell">يُعلم / يبلغ (بشكل رسمي)</td></tr>
+                <tr><td>Confirm</td><td class="ar-cell">يؤكد (يُثبت صحة شيء)</td></tr>
+                <tr><td>Reply</td><td class="ar-cell">يرد / يجيب (على إيميل أو كلام)</td></tr>
+                <tr><td>Convince</td><td class="ar-cell">يُقنع (يجعل شخص يصدق شيء)</td></tr>
+                <tr><td>Repeat</td><td class="ar-cell">يُكرر / يعيد</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Types of Spoken Communication</h2>
+        <div class="grammar-grid">
+            <div class="grammar-box">
+                <h3>1. Informal (غير رسمي)</h3>
+                <ul>
+                    <li><span class="highlight">Chat:</span> محادثة قصيرة وودية.</li>
+                    <li><span class="highlight">Conversation:</span> محادثة أطول وتبادل معلومات.</li>
+                </ul>
+            </div>
+            <div class="grammar-box magenta-box">
+                <h3>2. Formal (رسمي)</h3>
+                <ul>
+                    <li><span class="highlight-magenta">Discussion:</span> نقاش للوصول لقرار.</li>
+                    <li><span class="highlight-magenta">Debate:</span> مناظرة للوصول للحقيقة.</li>
+                </ul>
+            </div>
+            <div class="grammar-box orange-box">
+                <h3>3. One-Way (اتجاه واحد)</h3>
+                <ul>
+                    <li><span class="highlight" style="color:var(--neon-orange)">Speech:</span> خطاب رسمي لجمهور.</li>
+                    <li><span class="highlight" style="color:var(--neon-orange)">Lecture:</span> محاضرة تعليمية.</li>
+                    <li><span class="highlight" style="color:var(--neon-orange)">Presentation:</span> عرض لمنتج/فكرة.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Non-Verbal Communication (لغة الجسد)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th style="text-align:right">Meaning (Arabic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Shrug (shoulders)</td><td class="ar-cell">يهز كتفيه (يعني "لا أعرف")</td></tr>
+                <tr><td>Nod (head)</td><td class="ar-cell">يومئ برأسه للموافقة أو الاستماع</td></tr>
+                <tr><td>Shake (head)</td><td class="ar-cell">يهز رأسه يميناً ويساراً (للرفض أو الحزن)</td></tr>
+                <tr><td>Look (in the eye)</td><td class="ar-cell">ينظر في العين (دليل على الثقة)</td></tr>
+                <tr><td>Raise / Lower (voice)</td><td class="ar-cell">يرفع / يخفض صوته</td></tr>
+                <tr><td>Point (finger)</td><td class="ar-cell">يشير بإصبعه (يعتبر وقاحة أحياناً)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🔥 MEGA REVISION QUIZ 🔥</h2>
+        
+        <div class="question-block">
+            <div class="q-ar">من الوقاحة أن _____ كتفيك بدلاً من قول "لا أعرف".</div>
+            <div class="q-en">1. It’s rude to _____ your shoulders instead of saying, ‘I don’t know.’</div>
+            <ul class="options">
+                <li>A) shake <span class="opt-ar">يهز رأسه</span></li>
+                <li>B) nod <span class="opt-ar">يومئ</span></li>
+                <li>C) shrug <span class="opt-ar">يهز كتفيه</span></li>
+                <li>D) point <span class="opt-ar">يشير</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">هي حقاً _____ والدتها؛ لديهما نفس الابتسامة. (تشبه)</div>
+            <div class="q-en">2. She really _________ her mother; they have the same smile.</div>
+            <ul class="options">
+                <li>A) takes after <span class="opt-ar">تشبه</span></li>
+                <li>B) takes care <span class="opt-ar">تعتني بـ</span></li>
+                <li>C) looks after <span class="opt-ar">ترعى</span></li>
+                <li>D) takes away <span class="opt-ar">تأخذ بعيداً</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">المنطقة الـ _____ معروفة بعمارتها الحديثة وشوارعها المزدحمة.</div>
+            <div class="q-en">3. The ___________ area is known for its modern architecture and busy streets.</div>
+            <ul class="options">
+                <li>A) rural <span class="opt-ar">ريفية</span></li>
+                <li>B) urban <span class="opt-ar">حضرية</span></li>
+                <li>C) safe <span class="opt-ar">آمنة</span></li>
+                <li>D) local <span class="opt-ar">محلية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">هو ليس صديقي المقرب؛ هو مجرد _____. (معرفة سطحية)</div>
+            <div class="q-en">4. He isn’t my close friend; he’s just an _________.</div>
+            <ul class="options">
+                <li>A) acquaintance <span class="opt-ar">معرفة</span></li>
+                <li>B) neighbor <span class="opt-ar">جار</span></li>
+                <li>C) teacher <span class="opt-ar">معلم</span></li>
+                <li>D) assistant <span class="opt-ar">مساعد</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أصيبوا بـ _____ بعد الأكل في هذا المطعم.</div>
+            <div class="q-en">5. They got _________ after eating at that restaurant.</div>
+            <ul class="options">
+                <li>A) sunburn <span class="opt-ar">حرق شمس</span></li>
+                <li>B) food poisoning <span class="opt-ar">تسمم غذائي</span></li>
+                <li>C) a bruise <span class="opt-ar">كدمة</span></li>
+                <li>D) a sore throat <span class="opt-ar">التهاب حلق</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أعطاني الطبيب _____ لبعض الأدوية.</div>
+            <div class="q-en">6. The doctor gave me a _________ for some medicine.</div>
+            <ul class="options">
+                <li>A) receipt <span class="opt-ar">إيصال</span></li>
+                <li>B) description <span class="opt-ar">وصف</span></li>
+                <li>C) prescription <span class="opt-ar">روشتة طبيب</span></li>
+                <li>D) subscription <span class="opt-ar">اشتراك</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">احذر من الموقد (البوتاجاز) وإلا قد _____ يدك.</div>
+            <div class="q-en">7. Be careful with the stove or you might _________ your hand.</div>
+            <ul class="options">
+                <li>A) cut <span class="opt-ar">تقطع</span></li>
+                <li>B) break <span class="opt-ar">تكسر</span></li>
+                <li>C) burn <span class="opt-ar">تحرق</span></li>
+                <li>D) hit <span class="opt-ar">تضرب</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">تم تغطية القرية بالثلوج بعد _____ قوية.</div>
+            <div class="q-en">8. The village was covered in snow after a strong _________.</div>
+            <ul class="options">
+                <li>A) flood <span class="opt-ar">فيضان</span></li>
+                <li>B) blizzard <span class="opt-ar">عاصفة ثلجية</span></li>
+                <li>C) drought <span class="opt-ar">جفاف</span></li>
+                <li>D) earthquake <span class="opt-ar">زلزال</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">مدير المدرسة ألقى _____ طويلة.</div>
+            <div class="q-en">9. The principal gave a long _________ at the school assembly.</div>
+            <ul class="options">
+                <li>A) speech <span class="opt-ar">خطاب رسمي</span></li>
+                <li>B) lecture <span class="opt-ar">محاضرة تعليمية</span></li>
+                <li>C) chat <span class="opt-ar">محادثة ودية</span></li>
+                <li>D) discussion <span class="opt-ar">نقاش</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أنا أستمتع بـ _____ في الأماكن التي يمكنني الاسترخاء فيها. (بعد enjoy نضع ing)</div>
+            <div class="q-en">10. I enjoy ________ in places where I can relax.</div>
+            <ul class="options">
+                <li>A) to stay <span class="opt-ar">المصدر بـ to</span></li>
+                <li>B) staying <span class="opt-ar">Gerund</span></li>
+                <li>C) stay <span class="opt-ar">المصدر</span></li>
+                <li>D) stayed <span class="opt-ar">الماضي</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">قررنا _____ جزيرة صغيرة لقضاء إجازتنا. (بعد decide نضع to + inf)</div>
+            <div class="q-en">11. Last summer we decided ________ a small island for our holiday.</div>
+            <ul class="options">
+                <li>A) visiting <span class="opt-ar">Gerund</span></li>
+                <li>B) to visit <span class="opt-ar">Infinitive</span></li>
+                <li>C) visit <span class="opt-ar">بدون To</span></li>
+                <li>D) visited <span class="opt-ar">الماضي</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">هو سمح لي أن _____ دراجته. (بعد let نضع المصدر بدون To)</div>
+            <div class="q-en">12. He let me __________ his bike.</div>
+            <ul class="options">
+                <li>A) to borrow <span class="opt-ar">Infinitive</span></li>
+                <li>B) borrowing <span class="opt-ar">Gerund</span></li>
+                <li>C) borrow <span class="opt-ar">Bare infinitive</span></li>
+                <li>D) borrowed <span class="opt-ar">الماضي</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">انظر إلى هذه السحب الداكنة! _____ قريباً. (دليل - إذن نستخدم Going to)</div>
+            <div class="q-en">13. Look at those dark clouds! It ________ rain soon.</div>
+            <ul class="options">
+                <li>A) will <span class="opt-ar">توقع بدون دليل</span></li>
+                <li>B) is going to <span class="opt-ar">توقع بدليل</span></li>
+                <li>C) going to <span class="opt-ar">ناقصة is</span></li>
+                <li>D) will be <span class="opt-ar">تكوين خاطئ</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"نسيت دفتري!" - "لا تقلق، _____ لك خاصتي." (قرار سريع للمساعدة)</div>
+            <div class="q-en">14. “I forgot my notebook!” – “Don’t worry, I ______ lend you mine.”</div>
+            <ul class="options">
+                <li>A) am going to <span class="opt-ar">خطة مسبقة</span></li>
+                <li>B) will <span class="opt-ar">قرار سريع للمساعدة</span></li>
+                <li>C) going to <span class="opt-ar">تركيب خاطئ</span></li>
+                <li>D) be going to <span class="opt-ar">تركيب خاطئ</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إذا قمت بتسخين الثلج، فإنه _____. (حقيقة علمية - Zero Conditional)</div>
+            <div class="q-en">15. If you heat ice, it ______.</div>
+            <ul class="options">
+                <li>A) will melt <span class="opt-ar">First Conditional</span></li>
+                <li>B) melts <span class="opt-ar">Zero Conditional (مضارع)</span></li>
+                <li>C) melted <span class="opt-ar">ماضي</span></li>
+                <li>D) melting <span class="opt-ar">فعل مستمر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">هذا هو المنزل _____ ولدت فيه. (ضمير وصل للمكان)</div>
+            <div class="q-en">16. This is the house ______ I was born.</div>
+            <ul class="options">
+                <li>A) who <span class="opt-ar">للعاقل</span></li>
+                <li>B) which <span class="opt-ar">لغير العاقل</span></li>
+                <li>C) where <span class="opt-ar">للمكان</span></li>
+                <li>D) whose <span class="opt-ar">للملكية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">لدي صديق _____ والده طبيب. (ضمير وصل للملكية)</div>
+            <div class="q-en">17. I have a friend ______ father is a doctor.</div>
+            <ul class="options">
+                <li>A) who <span class="opt-ar">للعاقل</span></li>
+                <li>B) whose <span class="opt-ar">للملكية</span></li>
+                <li>C) which <span class="opt-ar">لغير العاقل</span></li>
+                <li>D) where <span class="opt-ar">للمكان</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">هم _____ التايكوندو بعد المدرسة. (رياضة قتالية)</div>
+            <div class="q-en">18. They ______ taekwondo after school.</div>
+            <ul class="options">
+                <li>A) play <span class="opt-ar">رياضة بالكرة</span></li>
+                <li>B) go <span class="opt-ar">رياضة بـ ing</span></li>
+                <li>C) do <span class="opt-ar">فنون قتالية</span></li>
+                <li>D) take <span class="opt-ar">خاطئة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">_____ جبل إيفرست هو أعلى جبل في العالم. (قواعد الـ Articles)</div>
+            <div class="q-en">19. __________ Mount Everest is the highest mountain in the world.</div>
+            <ul class="options">
+                <li>A) a <span class="opt-ar">نكرة</span></li>
+                <li>B) an <span class="opt-ar">متحرك</span></li>
+                <li>C) the <span class="opt-ar">معرفة</span></li>
+                <li>D) no article <span class="opt-ar">لأسماء الجبال المفردة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: D</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">هي تريد أن تصبح _____ مهندسة. (تحديد وظيفة لأول مرة)</div>
+            <div class="q-en">20. She wants to be __________ engineer.</div>
+            <ul class="options">
+                <li>A) a <span class="opt-ar">قبل ساكن</span></li>
+                <li>B) an <span class="opt-ar">قبل حرف متحرك</span></li>
+                <li>C) the <span class="opt-ar">تعريف</span></li>
+                <li>D) no article <span class="opt-ar">بدون أداة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+    </div>
+
+    <div class="capsule">
+        <h3>💊 Final Exam Capsule 💊</h3>
+        <p style="color:var(--text-main); font-size:1.1rem; line-height: 1.8;">
+            <span class="highlight">Grammar:</span><br>
+            <strong>Zero Conditional:</strong> (If you heat ice, it melts) - Facts.<br>
+            <strong>First Conditional:</strong> (If you study, you will pass) - Future possibilities.<br>
+            <strong>Going To vs Will:</strong> Clouds (Evidence) ➔ Going to | Quick Help ➔ Will.<br>
+            <strong>Verbs:</strong> Enjoy + ING | Decide + TO | Let + Bare verb.<br>
+            <span class="highlight" style="color:var(--neon-orange)">Articles:</span> No article for individual mountains (Everest) or sports (Football). Use 'An' for vowels (an engineer).<br>
+            <span class="highlight" style="color:var(--neon-magenta)">Communication:</span> Speech (1-way), Debate (2-way argument), Shrug (Don't know).
+        </p>
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>

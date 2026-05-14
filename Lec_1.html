@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 1 - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            margin-top: 50px;
+            border-bottom: 2px solid var(--neon-magenta);
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.ar-cell {
+            font-family: var(--font-ar);
+            text-align: right;
+            direction: rtl;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        .explanation {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-family: var(--font-en);
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-green);
+            padding: 0 5px;
+        }
+
+        .example-box {
+            background: rgba(0, 255, 102, 0.05);
+            border-left: 4px solid var(--neon-green);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 10px 10px 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .example-box .ar-text {
+            color: var(--text-muted);
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            margin-top: 5px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        /* Timeline CSS (Included for consistency with other lectures) */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0, 243, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--neon-cyan);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            min-width: 150px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border-top: 3px solid var(--neon-magenta);
+            transition: all 0.3s;
+        }
+
+        .timeline-step:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            border-top: 3px solid var(--neon-cyan);
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: '➔';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-magenta);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-magenta);
+            z-index: 10;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            color: var(--neon-cyan);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .step-desc-ar {
+            font-family: var(--font-ar);
+            font-size: 0.9rem;
+            color: var(--neon-green);
+            margin-top: 5px;
+            direction: rtl;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .q-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-cyan);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .q-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .options li:hover {
+            background: rgba(255, 0, 255, 0.1);
+            border-color: var(--neon-magenta);
+            transform: translateX(5px);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+        }
+
+        .answer-reveal {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            color: var(--neon-cyan);
+        }
+
+        .capsule {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(255, 0, 255, 0.2);
+            margin-top: 50px;
+        }
+
+        .capsule h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-family: var(--font-ar);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .capsule p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 60px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lecture 1: Relationships & Phrasal Verbs</h1>
+
+    <div class="card">
+        <h2>Vocabulary Glossary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Word (English)</th>
+                    <th style="text-align:right">Translation (Arabic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Acquaintance</td><td class="ar-cell">معرفة سطحية (شخص تعرفه ولكن لستم مقربين)</td></tr>
+                <tr><td>Neighbour</td><td class="ar-cell">جار</td></tr>
+                <tr><td>Manager</td><td class="ar-cell">مدير</td></tr>
+                <tr><td>Lecturer</td><td class="ar-cell">محاضر جامعي</td></tr>
+                <tr><td>Tutor</td><td class="ar-cell">معيد / مدرس خصوصي</td></tr>
+                <tr><td>Classmate</td><td class="ar-cell">زميل دراسة (في نفس الفصل)</td></tr>
+                <tr><td>Roommate</td><td class="ar-cell">زميل سكن (يشاركك الغرفة)</td></tr>
+                <tr><td>Housemate</td><td class="ar-cell">زميل سكن (يشاركك المنزل/الشقة)</td></tr>
+                <tr><td>Colleague</td><td class="ar-cell">زميل مهنة</td></tr>
+                <tr><td>Employer</td><td class="ar-cell">صاحب العمل / جهة العمل</td></tr>
+                <tr><td>Co-worker</td><td class="ar-cell">زميل عمل (في نفس الشركة)</td></tr>
+                <tr><td>Mentor <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">موجه / مرشد</td></tr>
+                <tr><td>Supervisor <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">مشرف</td></tr>
+                <tr><td>Peer <span style="color:var(--neon-magenta);font-size:0.8em;">(Bonus)</span></td><td class="ar-cell">قرين / نظير</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Verbs & Conjugations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Base Form</th>
+                    <th>Past Simple</th>
+                    <th>Past Participle</th>
+                    <th style="text-align:right">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Take</td><td>Took</td><td>Taken</td><td class="ar-cell">يأخذ</td></tr>
+                <tr><td>Look</td><td>Looked</td><td>Looked</td><td class="ar-cell">ينظر</td></tr>
+                <tr><td>Get</td><td>Got</td><td>Got/Gotten</td><td class="ar-cell">يحصل على / يصل</td></tr>
+                <tr><td>Bring</td><td>Brought</td><td>Brought</td><td class="ar-cell">يُحضر</td></tr>
+                <tr><td>Fall</td><td>Fell</td><td>Fallen</td><td class="ar-cell">يقع / يسقط</td></tr>
+                <tr><td>Share</td><td>Shared</td><td>Shared</td><td class="ar-cell">يشارك</td></tr>
+                <tr><td>Hire</td><td>Hired</td><td>Hired</td><td class="ar-cell">يُوظِّف</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Grammar Rules: Phrasal Verbs (Eng Zain Explanation)</h2>
+        <div class="explanation">
+            بص يا بشمهندس، ركز معايا في التريكة دي. القاعدة النهاردة بتتكلم عن الـ <span class="highlight">Phrasal Verbs</span>، ودي عبارة عن فعل بييجي معاه حرف جر (Preposition)، ولما بييجوا مع بعض المعنى بيتغير تماماً عن الفعل الأصلي. حاجة كده زي لما توصل مقاومتين على التوالي وتلاقي النتيجة حاجة تانية خالص! خد بالك من الأفعال دي عشان بتيجي كتير:
+        </div>
+
+        <table style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Phrasal Verb</th>
+                    <th>Example</th>
+                    <th style="text-align:right">الشرح الهندسي (بالعربي)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">1. Take after</td>
+                    <td>Sarah <span class="highlight">takes after</span> her father.</td>
+                    <td class="ar-cell">معناها إنك بتشبه حد في عيلتك. (سارة طالعة لوالدها)</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">2. Look after</td>
+                    <td>Can you <span class="highlight">look after</span> my cat?</td>
+                    <td class="ar-cell">يعتني بـ أو يخلي باله من حاجة. (خلي بالك من قطتي)</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-green); font-weight:bold;">3. Get on with</td>
+                    <td>I <span class="highlight">get on</span> well with neighbors.</td>
+                    <td class="ar-cell">ينسجم مع حد من غير مشاكل. (علاقتي كويسة بجيراني)</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">4. Bring up</td>
+                    <td>She was <span class="highlight">brought up</span> by them.</td>
+                    <td class="ar-cell">يربي أو ينشئ، مش يجيب حاجة لفوق! (اتربت على إيدهم)</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">5. Fall out with</td>
+                    <td>I <span class="highlight">fell out with</span> my friend.</td>
+                    <td class="ar-cell">يتشاجر أو يقاطع. دائرة قصر (Short Circuit) في العلاقة!</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-green); font-weight:bold;">6. Look up to</td>
+                    <td>I <span class="highlight">look up to</span> my brother.</td>
+                    <td class="ar-cell">يقتدي بـ أو يحترم حد جداً. (باصص لفوق لشخصيته)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>MCQ Quiz</h2>
+        
+        <div class="question-block">
+            <div class="q-ar">ما هو الفعل المركب الذي يعني "يشبه أحد أفراد العائلة"؟</div>
+            <div class="q-en">1. Which phrasal verb means "to resemble a family member"?</div>
+            <ul class="options">
+                <li>A) Get on <span class="opt-ar">ينسجم</span></li>
+                <li>B) Take after <span class="opt-ar">يشبه</span></li>
+                <li>C) Look up to <span class="opt-ar">يقتدي بـ</span></li>
+                <li>D) Fall out <span class="opt-ar">يتشاجر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا يعني "look after"؟</div>
+            <div class="q-en">2. What does "look after" mean?</div>
+            <ul class="options">
+                <li>A) To bring up a topic <span class="opt-ar">يطرح موضوع</span></li>
+                <li>B) To take care of someone or something <span class="opt-ar">يعتني بشخص أو بشيء</span></li>
+                <li>C) To admire someone <span class="opt-ar">يعجب بشخص</span></li>
+                <li>D) To resemble someone <span class="opt-ar">يشبه شخص</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تسمى الشخص الذي يكلفك بالمهام في العمل (المدير)؟</div>
+            <div class="q-en">3. Who is the person in charge of employees at a workplace?</div>
+            <ul class="options">
+                <li>A) Employer <span class="opt-ar">صاحب العمل</span></li>
+                <li>B) Housemate <span class="opt-ar">زميل منزل</span></li>
+                <li>C) Manager <span class="opt-ar">مدير</span></li>
+                <li>D) Lecturer <span class="opt-ar">محاضر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إذا كان لديك علاقة جيدة مع شخص ما، فإنك:</div>
+            <div class="q-en">4. If you have a good relationship with someone, you:</div>
+            <ul class="options">
+                <li>A) Look after them <span class="opt-ar">تعتني بهم</span></li>
+                <li>B) Take after them <span class="opt-ar">تشبههم</span></li>
+                <li>C) Get on with them <span class="opt-ar">تنسجم معهم</span></li>
+                <li>D) Fall out with them <span class="opt-ar">تتشاجر معهم</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما المصطلح الذي يطلق على الأشخاص في نفس فصلك الدراسي؟</div>
+            <div class="q-en">5. What do you call people in the same class as you?</div>
+            <ul class="options">
+                <li>A) Neighbours <span class="opt-ar">جيران</span></li>
+                <li>B) Housemates <span class="opt-ar">زملاء منزل</span></li>
+                <li>C) Classmates <span class="opt-ar">زملاء دراسة</span></li>
+                <li>D) Employers <span class="opt-ar">أصحاب عمل</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا يعني فعل "bring up" في سياق الأطفال؟</div>
+            <div class="q-en">6. What does "bring up" mean in the context of children?</div>
+            <ul class="options">
+                <li>A) To take care of children <span class="opt-ar">يعتني بالأطفال</span></li>
+                <li>B) To introduce a topic <span class="opt-ar">يقدم موضوع</span></li>
+                <li>C) To raise or care for children <span class="opt-ar">يربي الأطفال وينشئهم</span></li>
+                <li>D) To argue with someone <span class="opt-ar">يتجادل مع شخص</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إلى ماذا يشير "fall out with someone"؟</div>
+            <div class="q-en">7. What does "fall out with someone" imply?</div>
+            <ul class="options">
+                <li>A) To stop being friends after an argument <span class="opt-ar">إنهاء الصداقة بعد شجار</span></li>
+                <li>B) To admire someone <span class="opt-ar">الإعجاب بشخص</span></li>
+                <li>C) To get along with someone <span class="opt-ar">الانسجام مع شخص</span></li>
+                <li>D) To resemble someone <span class="opt-ar">التشبه بشخص</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">عندما شخص "looks up to" شخص آخر، فإنه:</div>
+            <div class="q-en">8. When someone "looks up to" another person, they:</div>
+            <ul class="options">
+                <li>A) Care for them <span class="opt-ar">يعتني بهم</span></li>
+                <li>B) Argue with them <span class="opt-ar">يتجادل معهم</span></li>
+                <li>C) Admire or respect them <span class="opt-ar">يحترمهم أو يقتدي بهم</span></li>
+                <li>D) Resemble them <span class="opt-ar">يشبههم</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تسمى الشخص الذي يدرس في الجامعة؟</div>
+            <div class="q-en">9. What do you call a teacher at a university?</div>
+            <ul class="options">
+                <li>A) Classmate <span class="opt-ar">زميل دراسة</span></li>
+                <li>B) Lecturer <span class="opt-ar">محاضر</span></li>
+                <li>C) Neighbour <span class="opt-ar">جار</span></li>
+                <li>D) Housemate <span class="opt-ar">زميل منزل</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي فعل مركب يكمل هذه الجملة؟ "أنا ______ معلمتي لأنها واسعة المعرفة."</div>
+            <div class="q-en">10. Which phrasal verb best fits this sentence? "I __________ my teacher because she is very knowledgeable."</div>
+            <ul class="options">
+                <li>A) Get on with <span class="opt-ar">أنسجم مع</span></li>
+                <li>B) Look up to <span class="opt-ar">أقتدي بـ</span></li>
+                <li>C) Fall out with <span class="opt-ar">أتشاجر مع</span></li>
+                <li>D) Bring up <span class="opt-ar">أربي</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما هو المصطلح الذي يعبر عن شخص تعرفه ولكنك لست مقرباً منه؟</div>
+            <div class="q-en">11. What is the term for people who you know but aren’t very close to?</div>
+            <ul class="options">
+                <li>A) Roommates <span class="opt-ar">زملاء سكن</span></li>
+                <li>B) Acquaintances <span class="opt-ar">معارف</span></li>
+                <li>C) Classmates <span class="opt-ar">زملاء دراسة</span></li>
+                <li>D) Tutors <span class="opt-ar">معيدين</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">إذا كان شقيقان "get on well"، ماذا يعني هذا؟</div>
+            <div class="q-en">12. If siblings "get on well," what does it mean?</div>
+            <ul class="options">
+                <li>A) They often argue. <span class="opt-ar">يتجادلون كثيراً</span></li>
+                <li>B) They admire each other. <span class="opt-ar">يعجبون ببعضهم</span></li>
+                <li>C) They resemble each other. <span class="opt-ar">يشبهون بعضهم</span></li>
+                <li>D) They have a good relationship. <span class="opt-ar">علاقتهم جيدة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: D</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ماذا تسمي الأشخاص الذين يعملون معك في عملك؟</div>
+            <div class="q-en">13. What do you call people who work with you at your job?</div>
+            <ul class="options">
+                <li>A) Colleagues <span class="opt-ar">زملاء مهنة</span></li>
+                <li>B) Tutors <span class="opt-ar">معيدين</span></li>
+                <li>C) Neighbours <span class="opt-ar">جيران</span></li>
+                <li>D) Roommates <span class="opt-ar">زملاء غرفة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي فعل مركب ستستخدمه للقول بأنك تشاجرت مع صديق؟</div>
+            <div class="q-en">14. Which phrasal verb would you use to say you had a major argument with a friend?</div>
+            <ul class="options">
+                <li>A) Take after <span class="opt-ar">يشبه</span></li>
+                <li>B) Look up to <span class="opt-ar">يقتدي</span></li>
+                <li>C) Fall out with <span class="opt-ar">يتشاجر مع</span></li>
+                <li>D) Bring up <span class="opt-ar">يربي</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">اختر الفعل الصحيح: "هو ______ شخصية والده الهادئة."</div>
+            <div class="q-en">15. Choose the correct verb: "He __________ his father’s calm personality."</div>
+            <ul class="options">
+                <li>A) Gets on with <span class="opt-ar">ينسجم مع</span></li>
+                <li>B) Takes after <span class="opt-ar">يشبه / يأخذ طباع</span></li>
+                <li>C) Looks up to <span class="opt-ar">يقتدي بـ</span></li>
+                <li>D) Falls out with <span class="opt-ar">يتشاجر مع</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+    </div>
+
+    <div class="capsule">
+        <h3>💊 Quick Summary Capsule 💊</h3>
+        <p style="color:var(--text-main); font-size:1.1rem; line-height: 1.8;">
+            <span class="highlight">Take after</span> = يشبه أهله | 
+            <span class="highlight">Look after</span> = يعتني بـ | 
+            <span class="highlight">Get on with</span> = ينسجم مع <br><br>
+            <span class="highlight">Bring up</span> = يربي | 
+            <span class="highlight">Fall out with</span> = يتشاجر مع | 
+            <span class="highlight">Look up to</span> = يقتدي بـ
+        </p>
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>

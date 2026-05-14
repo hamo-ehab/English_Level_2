@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Quiz 100 - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.9);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --neon-red: #ff003c;
+            --neon-yellow: #ffeb3b;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-magenta);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-magenta); }
+            to { text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-magenta), 0 0 60px #fff; }
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--neon-cyan);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .score-val { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
+        .progress-val { color: var(--neon-yellow); text-shadow: 0 0 10px var(--neon-yellow); }
+
+        .quiz-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--neon-magenta);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed rgba(255, 0, 255, 0.3);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .q-text-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-cyan);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .q-text-en {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-family: var(--font-en);
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-cyan);
+            transform: translateX(10px);
+        }
+
+        .option-btn.correct {
+            background: rgba(0, 255, 102, 0.2);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+        }
+
+        .option-btn.wrong {
+            background: rgba(255, 0, 60, 0.2);
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: var(--font-ar);
+            font-size: 1.1rem;
+            direction: rtl;
+            text-align: right;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.success {
+            display: block;
+            background: rgba(0, 255, 102, 0.1);
+            border-right: 4px solid var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .feedback.error {
+            display: block;
+            background: rgba(255, 0, 60, 0.1);
+            border-right: 4px solid var(--neon-red);
+            color: var(--neon-red);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .next-btn {
+            background: linear-gradient(90deg, #ff00ff, #00f3ff);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+        }
+
+        #results-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .final-score {
+            font-size: 5rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 20px var(--neon-green);
+            margin: 20px 0;
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 3rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>100-Question Master Quiz</h1>
+    
+    <div class="score-board" id="scoreBoard">
+        <div>Score: <span class="score-val" id="score">0</span></div>
+        <div>Progress: <span class="progress-val" id="progress">1 / 100</span></div>
+    </div>
+
+    <div id="quiz-container">
+        <!-- Question Card Injected by JS -->
+    </div>
+
+    <div id="results-screen" class="quiz-card">
+        <h2 style="color:var(--neon-cyan); font-size:2.5rem;">Exam Completed!</h2>
+        <div class="final-score" id="finalScoreDisplay">0%</div>
+        <p style="font-family: var(--font-ar); font-size: 1.5rem; direction: rtl;">
+            عاش يا هندسة! المراجعة جابت نتيجة.
+        </p>
+        <button class="next-btn" style="display:inline-block; margin-top: 20px;" onclick="location.reload()">Retry Exam</button>
+    </div>
+
+    <div class="signature">Zain</div>
+</div>
+
+<script>
+    // 100 Highly Curated Questions Spanning All 10 Lectures
+    const quizData = [
+        // LECTURE 1: Phrasal Verbs & Acquaintances
+        { cat: "Lec 1 - Phrasal Verbs", en: "She really _________ her mother; they have the exact same smile.", ar: "إنها تشبه والدتها؛ لديهما نفس الابتسامة.", options: [ {text: "takes after", ar:"تشبه", correct: true}, {text: "looks after", ar:"ترعى", correct: false}, {text: "takes care", ar:"تعتني", correct: false}, {text: "looks up to", ar:"تحترم", correct: false} ], explain: "Take after = يشبه أحد الوالدين أو الأقارب." },
+        { cat: "Lec 1 - Vocab", en: "He isn’t my close friend; he’s just an _________.", ar: "هو ليس صديقي المقرب؛ هو مجرد معرفة.", options: [ {text: "acquaintance", ar:"معرفة سطحية", correct: true}, {text: "enemy", ar:"عدو", correct: false}, {text: "stranger", ar:"غريب", correct: false}, {text: "relative", ar:"قريب", correct: false} ], explain: "Acquaintance = شخص تعرفه ولكن ليس صديقاً مقرباً." },
+        { cat: "Lec 1 - Phrasal Verbs", en: "I really _________ my grandfather; he is my role model.", ar: "أنا أحترم جدي وأعتبره قدوة.", options: [ {text: "look up to", ar:"يحترم ويقدر", correct: true}, {text: "take after", ar:"يشبه", correct: false}, {text: "look down on", ar:"يحتقر", correct: false}, {text: "bring up", ar:"يربي", correct: false} ], explain: "Look up to = يحترم ويعتبره مثل أعلى." },
+        { cat: "Lec 1 - Phrasal Verbs", en: "My aunt helped to _________ me after my parents died.", ar: "عمتي ساعدت في تربيتي.", options: [ {text: "bring up", ar:"يربي", correct: true}, {text: "take after", ar:"يشبه", correct: false}, {text: "grow up", ar:"يكبر", correct: false}, {text: "look after", ar:"يعتني مؤقتاً", correct: false} ], explain: "Bring up = يربي طفل." },
+        { cat: "Lec 1 - Phrasal Verbs", en: "I didn't mean to _________ that problem during the meeting.", ar: "لم أقصد إثارة هذه المشكلة أثناء الاجتماع.", options: [ {text: "bring up", ar:"يثير موضوعاً", correct: true}, {text: "take after", ar:"يشبه", correct: false}, {text: "grow up", ar:"يكبر", correct: false}, {text: "look up", ar:"يبحث", correct: false} ], explain: "Bring up = يربي طفل / أو يثير موضوع للنقاش." },
+        { cat: "Lec 1 - Vocab", en: "We are colleagues, we work in the same _________.", ar: "نحن زملاء، نعمل في نفس القسم.", options: [ {text: "department", ar:"قسم", correct: true}, {text: "acquaintance", ar:"معرفة", correct: false}, {text: "stranger", ar:"غريب", correct: false}, {text: "neighborhood", ar:"حي", correct: false} ], explain: "Colleagues = زملاء عمل." },
+        { cat: "Lec 1 - Phrasal Verbs", en: "Who is going to _________ your dog while you are on holiday?", ar: "من سيعتني بكلبك أثناء إجازتك؟", options: [ {text: "look after", ar:"يعتني بـ", correct: true}, {text: "take after", ar:"يشبه", correct: false}, {text: "look up to", ar:"يحترم", correct: false}, {text: "bring up", ar:"يربي", correct: false} ], explain: "Look after = يعتني بشخص أو شيء." },
+        { cat: "Lec 1 - Phrasal Verbs", en: "He decided to _________ smoking for his health.", ar: "قرر أن يقلع عن التدخين.", options: [ {text: "give up", ar:"يقلع عن", correct: true}, {text: "take up", ar:"يبدأ عادة", correct: false}, {text: "look up", ar:"يبحث", correct: false}, {text: "bring up", ar:"يربي", correct: false} ], explain: "Give up = يقلع عن عادة." },
+        { cat: "Lec 1 - Phrasal Verbs", en: "I need to _________ this word in the dictionary.", ar: "أحتاج للبحث عن هذه الكلمة.", options: [ {text: "look up", ar:"يبحث عن معلومة", correct: true}, {text: "look after", ar:"يعتني", correct: false}, {text: "take after", ar:"يشبه", correct: false}, {text: "bring up", ar:"يربي", correct: false} ], explain: "Look up = يبحث عن معلومة في قاموس أو إنترنت." },
+        { cat: "Lec 1 - Vocab", en: "Someone you don't know at all is a _________.", ar: "شخص لا تعرفه إطلاقاً.", options: [ {text: "stranger", ar:"غريب", correct: true}, {text: "acquaintance", ar:"معرفة", correct: false}, {text: "colleague", ar:"زميل", correct: false}, {text: "peer", ar:"قرين", correct: false} ], explain: "Stranger = شخص غريب." },
+
+        // LECTURE 2: Essay Writing
+        { cat: "Lec 2 - Essay Structure", en: "Which sentence tells the reader what the paragraph is about?", ar: "أي جملة تخبر القارئ بموضوع الفقرة؟", options: [ {text: "The topic sentence", ar:"الجملة الافتتاحية", correct: true}, {text: "The concluding sentence", ar:"الجملة الختامية", correct: false}, {text: "The supporting detail", ar:"التفاصيل الداعمة", correct: false}, {text: "The hook", ar:"الجملة الجاذبة", correct: false} ], explain: "Topic sentence = الفكرة الرئيسية للفقرة وتأتي في البداية." },
+        { cat: "Lec 2 - Essay Process", en: "Writing down all your ideas quickly without worrying about grammar is called:", ar: "كتابة الأفكار بسرعة دون القلق من القواعد تسمى:", options: [ {text: "Brainstorming", ar:"العصف الذهني", correct: true}, {text: "Editing", ar:"التحرير", correct: false}, {text: "Proofreading", ar:"التدقيق", correct: false}, {text: "Publishing", ar:"النشر", correct: false} ], explain: "Brainstorming = مرحلة تجميع الأفكار." },
+        { cat: "Lec 2 - Essay Process", en: "Checking for spelling and grammar mistakes happens during the _________ stage.", ar: "التأكد من الأخطاء الإملائية يحدث في مرحلة:", options: [ {text: "Editing", ar:"التحرير/المراجعة", correct: true}, {text: "Drafting", ar:"المسودة", correct: false}, {text: "Pre-writing", ar:"ما قبل الكتابة", correct: false}, {text: "Brainstorming", ar:"العصف الذهني", correct: false} ], explain: "Editing = مراجعة وتصحيح الأخطاء." },
+        { cat: "Lec 2 - Essay Structure", en: "Which of the following is a transition word for showing a result?", ar: "أي من التالي كلمة انتقال تدل على النتيجة؟", options: [ {text: "Therefore", ar:"لذلك", correct: true}, {text: "However", ar:"ومع ذلك", correct: false}, {text: "First of all", ar:"أولاً", correct: false}, {text: "In addition", ar:"بالإضافة إلى", correct: false} ], explain: "Therefore = كنتيجة / لذلك." },
+        { cat: "Lec 2 - Essay Structure", en: "A paragraph usually ends with a _________.", ar: "الفقرة تنتهي عادة بـ:", options: [ {text: "Concluding sentence", ar:"جملة ختامية", correct: true}, {text: "Topic sentence", ar:"جملة افتتاحية", correct: false}, {text: "Title", ar:"عنوان", correct: false}, {text: "Citation", ar:"اقتباس", correct: false} ], explain: "الفقرة تختم بالـ Concluding sentence." },
+        { cat: "Lec 2 - Vocab", en: "Another word for 'advantages' is _________.", ar: "كلمة أخرى تعني مميزات.", options: [ {text: "Pros", ar:"إيجابيات", correct: true}, {text: "Cons", ar:"سلبيات", correct: false}, {text: "Drawbacks", ar:"عيوب", correct: false}, {text: "Issues", ar:"مشاكل", correct: false} ], explain: "Pros and Cons = الإيجابيات والسلبيات." },
+        { cat: "Lec 2 - Vocab", en: "Another word for 'disadvantages' is _________.", ar: "كلمة أخرى تعني عيوب.", options: [ {text: "Drawbacks", ar:"عيوب/سلبيات", correct: true}, {text: "Benefits", ar:"فوائد", correct: false}, {text: "Pros", ar:"إيجابيات", correct: false}, {text: "Rewards", ar:"مكافآت", correct: false} ], explain: "Drawbacks = العيوب والسلبيات." },
+        { cat: "Lec 2 - Essay Structure", en: "When you write the very first version of your essay, it is called a _________.", ar: "النسخة الأولى من المقال تسمى:", options: [ {text: "Draft", ar:"مسودة", correct: true}, {text: "Final copy", ar:"نسخة نهائية", correct: false}, {text: "Outline", ar:"هيكل", correct: false}, {text: "Brainstorm", ar:"عصف ذهني", correct: false} ], explain: "Draft = المسودة الأولى." },
+        { cat: "Lec 2 - Essay Structure", en: "Which transition is best to add more information?", ar: "لإضافة معلومات نستخدم:", options: [ {text: "Furthermore", ar:"علاوة على ذلك", correct: true}, {text: "However", ar:"ولكن", correct: false}, {text: "Therefore", ar:"لذلك", correct: false}, {text: "Consequently", ar:"وبالتالي", correct: false} ], explain: "Furthermore / In addition = للإضافة." },
+        { cat: "Lec 2 - Essay Structure", en: "Which transition is best for a contrast?", ar: "للتناقض نستخدم:", options: [ {text: "On the other hand", ar:"من ناحية أخرى", correct: true}, {text: "Moreover", ar:"علاوة على ذلك", correct: false}, {text: "For example", ar:"على سبيل المثال", correct: false}, {text: "As a result", ar:"كنتيجة", correct: false} ], explain: "On the other hand = لبيان وجهة نظر متعارضة." },
+
+        // LECTURE 3: Medical Advice
+        { cat: "Lec 3 - Medical Vocab", en: "They got _________ after eating spoiled food.", ar: "أصيبوا بتسمم غذائي.", options: [ {text: "food poisoning", ar:"تسمم غذائي", correct: true}, {text: "a bruise", ar:"كدمة", correct: false}, {text: "a sore throat", ar:"التهاب حلق", correct: false}, {text: "a prescription", ar:"روشتة", correct: false} ], explain: "Food poisoning = تسمم بسبب الأكل الفاسد." },
+        { cat: "Lec 3 - Medical Vocab", en: "I hit my arm on the table and now I have a purple _________.", ar: "اصطدمت ذراعي بالطاولة ولدي الآن كدمة.", options: [ {text: "bruise", ar:"كدمة", correct: true}, {text: "burn", ar:"حرق", correct: false}, {text: "cut", ar:"جرح", correct: false}, {text: "fever", ar:"حمى", correct: false} ], explain: "Bruise = كدمة زرقاء أو بنفسجية تحت الجلد." },
+        { cat: "Lec 3 - Medical Advice", en: "You have a fever. You _________ see a doctor.", ar: "لديك حمى. يجب أن ترى طبيباً.", options: [ {text: "should", ar:"يجب (للنصيحة)", correct: true}, {text: "shouldn't", ar:"لا يجب", correct: false}, {text: "are", ar:"تكون", correct: false}, {text: "don't have to", ar:"لست مضطراً", correct: false} ], explain: "Should = تستخدم لإعطاء النصيحة." },
+        { cat: "Lec 3 - Medical Advice", en: "You _________ smoke. It's terrible for your lungs.", ar: "لا يجب أن تدخن.", options: [ {text: "ought not to", ar:"لا يجب أن", correct: true}, {text: "ought to", ar:"يجب أن", correct: false}, {text: "had better", ar:"من الأفضل", correct: false}, {text: "should", ar:"يجب", correct: false} ], explain: "Ought not to = تعادل shouldn't في النصيحة." },
+        { cat: "Lec 3 - Medical Advice", en: "He _________ go to the dentist. His tooth hurts a lot.", ar: "من الأفضل له أن يذهب لطبيب الأسنان.", options: [ {text: "had better", ar:"من الأفضل (نصيحة قوية)", correct: true}, {text: "had better not", ar:"من الأفضل ألا", correct: false}, {text: "ought", ar:"ناقصة to", correct: false}, {text: "should to", ar:"تركيب خاطئ", correct: false} ], explain: "Had better = نصيحة قوية يتبعها المصدر." },
+        { cat: "Lec 3 - Medical Vocab", en: "The doctor gave me a _________ for antibiotics.", ar: "أعطاني الطبيب روشتة للمضادات الحيوية.", options: [ {text: "prescription", ar:"وصفة طبية", correct: true}, {text: "receipt", ar:"إيصال", correct: false}, {text: "recipe", ar:"وصفة طعام", correct: false}, {text: "bill", ar:"فاتورة", correct: false} ], explain: "Prescription = روشتة الأدوية." },
+        { cat: "Lec 3 - Medical Vocab", en: "I spent too long at the beach and got a severe _________.", ar: "قضيت وقتاً طويلاً على الشاطئ وأصبت بحرق شمس.", options: [ {text: "sunburn", ar:"حرق شمس", correct: true}, {text: "frostbite", ar:"عضة صقيع", correct: false}, {text: "bruise", ar:"كدمة", correct: false}, {text: "cough", ar:"سعال", correct: false} ], explain: "Sunburn = حرق من أشعة الشمس." },
+        { cat: "Lec 3 - Medical Advice", en: "It's raining heavily. You _________ forget your umbrella.", ar: "إنها تمطر بشدة. من الأفضل ألا تنسى مظلتك.", options: [ {text: "had better not", ar:"من الأفضل ألا", correct: true}, {text: "had not better", ar:"تركيب خاطئ", correct: false}, {text: "shouldn't to", ar:"تركيب خاطئ", correct: false}, {text: "ought not", ar:"ناقصة to", correct: false} ], explain: "النفي في had better هو: had better NOT + Inf." },
+        { cat: "Lec 3 - Medical Vocab", en: "I can't speak loudly. I have a _________ throat.", ar: "أعاني من التهاب في الحلق.", options: [ {text: "sore", ar:"ملتهب/مؤلم", correct: true}, {text: "bruised", ar:"مكدم", correct: false}, {text: "broken", ar:"مكسور", correct: false}, {text: "cut", ar:"مجروح", correct: false} ], explain: "Sore throat = احتقان أو التهاب الحلق." },
+        { cat: "Lec 3 - Medical Vocab", en: "I ate something bad and my _________ hurts.", ar: "بطني تؤلمني.", options: [ {text: "stomach", ar:"معدة", correct: true}, {text: "back", ar:"ظهر", correct: false}, {text: "head", ar:"رأس", correct: false}, {text: "knee", ar:"ركبة", correct: false} ], explain: "Stomach = المعدة (تؤلم بسبب الأكل)." },
+
+        // LECTURE 4: Data Reporting
+        { cat: "Lec 4 - Data Reporting", en: "Over 80% is considered a _________ majority.", ar: "أكثر من 80% تعتبر أغلبية كاسحة.", options: [ {text: "vast", ar:"كاسحة/هائلة", correct: true}, {text: "tiny", ar:"صغيرة", correct: false}, {text: "minor", ar:"بسيطة", correct: false}, {text: "half", ar:"نصف", correct: false} ], explain: "Vast majority = الأغلبية الساحقة (نسبة عالية جداً)." },
+        { cat: "Lec 4 - Data Reporting", en: "About 5% represents a _________ minority.", ar: "حوالي 5% تمثل أقلية ضئيلة.", options: [ {text: "tiny", ar:"ضئيلة", correct: true}, {text: "vast", ar:"كبيرة", correct: false}, {text: "significant", ar:"ملحوظة", correct: false}, {text: "large", ar:"كبيرة", correct: false} ], explain: "Tiny minority = أقلية ضئيلة جداً." },
+        { cat: "Lec 4 - Data Reporting", en: "Exactly 50% means _________ of the people.", ar: "بالضبط 50% تعني النصف.", options: [ {text: "half", ar:"نصف", correct: true}, {text: "a quarter", ar:"ربع", correct: false}, {text: "a third", ar:"ثلث", correct: false}, {text: "the majority", ar:"الأغلبية", correct: false} ], explain: "Half = 50%." },
+        { cat: "Lec 4 - Data Reporting", en: "Approximately 25% is _________.", ar: "تقريباً 25% تساوي:", options: [ {text: "a quarter", ar:"ربع", correct: true}, {text: "a half", ar:"نصف", correct: false}, {text: "a third", ar:"ثلث", correct: false}, {text: "two thirds", ar:"ثلثين", correct: false} ], explain: "A quarter = 25%." },
+        { cat: "Lec 4 - Data Reporting", en: "If the number drops from 50 to 10, it has decreased _________.", ar: "إذا انخفض الرقم بشدة نقول:", options: [ {text: "significantly", ar:"بشكل ملحوظ/كبير", correct: true}, {text: "slightly", ar:"بشكل طفيف", correct: false}, {text: "steadily", ar:"بشكل ثابت", correct: false}, {text: "gradually", ar:"تدريجياً", correct: false} ], explain: "Significantly = بشكل ملحوظ أو كبير." },
+        { cat: "Lec 4 - Data Reporting", en: "A slow and continuous change is happening _________.", ar: "تغير بطيء ومستمر يحدث تدريجياً.", options: [ {text: "gradually", ar:"تدريجياً", correct: true}, {text: "suddenly", ar:"فجأة", correct: false}, {text: "sharply", ar:"بحدة", correct: false}, {text: "dramatically", ar:"بشكل دراماتيكي", correct: false} ], explain: "Gradually = بتدرج." },
+        { cat: "Lec 4 - Reading Skills", en: "Looking quickly through a text to find a specific date is called _________.", ar: "البحث السريع عن تاريخ محدد يسمى:", options: [ {text: "scanning", ar:"البحث عن معلومة محددة", correct: true}, {text: "skimming", ar:"قراءة سريعة للفكرة العامة", correct: false}, {text: "brainstorming", ar:"عصف ذهني", correct: false}, {text: "editing", ar:"تحرير", correct: false} ], explain: "Scanning = مسح النص للبحث عن رقم أو كلمة محددة." },
+        { cat: "Lec 4 - Reading Skills", en: "Reading quickly to get the main idea is called _________.", ar: "القراءة السريعة لمعرفة الفكرة العامة تسمى:", options: [ {text: "skimming", ar:"القراءة العابرة", correct: true}, {text: "scanning", ar:"مسح محدد", correct: false}, {text: "guessing", ar:"تخمين", correct: false}, {text: "drafting", ar:"صياغة", correct: false} ], explain: "Skimming = أخذ فكرة عامة عن النص." },
+        { cat: "Lec 4 - Data Reporting", en: "Around 33% is considered _________.", ar: "33% تمثل الثلث.", options: [ {text: "a third", ar:"ثلث", correct: true}, {text: "a quarter", ar:"ربع", correct: false}, {text: "half", ar:"نصف", correct: false}, {text: "three quarters", ar:"ثلاثة أرباع", correct: false} ], explain: "A third = 33.3%." },
+        { cat: "Lec 4 - Data Reporting", en: "If the number stays exactly the same, it remains _________.", ar: "إذا ظل الرقم كما هو، فهو ثابت.", options: [ {text: "stable", ar:"مستقر/ثابت", correct: true}, {text: "fluctuating", ar:"متذبذب", correct: false}, {text: "peaked", ar:"وصل للقمة", correct: false}, {text: "plummeted", ar:"هبط بشدة", correct: false} ], explain: "Stable = ثابت لا يتغير." },
+
+        // LECTURE 5: Gerunds vs Infinitives
+        { cat: "Lec 5 - Gerund / Infinitive", en: "I enjoy _________ in places where I can relax.", ar: "أستمتع بالبقاء في أماكن مريحة.", options: [ {text: "staying", ar:"Gerund", correct: true}, {text: "to stay", ar:"Infinitive", correct: false}, {text: "stay", ar:"المصدر", correct: false}, {text: "stayed", ar:"ماضي", correct: false} ], explain: "الفعل enjoy يأتي بعده (Verb + ing)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "Last summer we decided _________ a small island.", ar: "قررنا زيارة جزيرة.", options: [ {text: "to visit", ar:"Infinitive", correct: true}, {text: "visiting", ar:"Gerund", correct: false}, {text: "visit", ar:"المصدر", correct: false}, {text: "visited", ar:"ماضي", correct: false} ], explain: "الفعل decide يأتي بعده (to + Infinitive)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "He let me _________ his bike.", ar: "سمح لي باستعارة دراجته.", options: [ {text: "borrow", ar:"Bare Infinitive", correct: true}, {text: "to borrow", ar:"Infinitive", correct: false}, {text: "borrowing", ar:"Gerund", correct: false}, {text: "borrowed", ar:"ماضي", correct: false} ], explain: "الفعل let (وكذلك make) يأتي بعدهما المصدر بدون to." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "I avoid _________ fast food to stay healthy.", ar: "أتجنب أكل الوجبات السريعة.", options: [ {text: "eating", ar:"Gerund", correct: true}, {text: "to eat", ar:"Infinitive", correct: false}, {text: "eat", ar:"المصدر", correct: false}, {text: "ate", ar:"ماضي", correct: false} ], explain: "الفعل avoid يأتي بعده (Verb + ing)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "She promised _________ me with my homework.", ar: "وعدت بمساعدتي.", options: [ {text: "to help", ar:"Infinitive", correct: true}, {text: "helping", ar:"Gerund", correct: false}, {text: "help", ar:"المصدر", correct: false}, {text: "helped", ar:"ماضي", correct: false} ], explain: "الفعل promise يأتي بعده (to + Infinitive)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "My parents make me _________ my room every weekend.", ar: "يجعلني والداي أنظف غرفتي.", options: [ {text: "clean", ar:"Bare Infinitive", correct: true}, {text: "to clean", ar:"Infinitive", correct: false}, {text: "cleaning", ar:"Gerund", correct: false}, {text: "cleaned", ar:"ماضي", correct: false} ], explain: "الفعل make يأتي بعده المصدر بدون to." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "I finished _________ the report yesterday.", ar: "أنهيت كتابة التقرير.", options: [ {text: "writing", ar:"Gerund", correct: true}, {text: "to write", ar:"Infinitive", correct: false}, {text: "write", ar:"المصدر", correct: false}, {text: "wrote", ar:"ماضي", correct: false} ], explain: "الفعل finish يأتي بعده (Verb + ing)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "We plan _________ to London next year.", ar: "نخطط للسفر.", options: [ {text: "to travel", ar:"Infinitive", correct: true}, {text: "traveling", ar:"Gerund", correct: false}, {text: "travel", ar:"المصدر", correct: false}, {text: "traveled", ar:"ماضي", correct: false} ], explain: "الفعل plan يأتي بعده (to + Infinitive)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "Would you mind _________ the window?", ar: "هل تمانع في فتح النافذة؟", options: [ {text: "opening", ar:"Gerund", correct: true}, {text: "to open", ar:"Infinitive", correct: false}, {text: "open", ar:"المصدر", correct: false}, {text: "opened", ar:"ماضي", correct: false} ], explain: "الفعل mind يأتي بعده (Verb + ing)." },
+        { cat: "Lec 5 - Gerund / Infinitive", en: "He refused _________ the money.", ar: "رفض أخذ المال.", options: [ {text: "to take", ar:"Infinitive", correct: true}, {text: "taking", ar:"Gerund", correct: false}, {text: "take", ar:"المصدر", correct: false}, {text: "took", ar:"ماضي", correct: false} ], explain: "الفعل refuse يأتي بعده (to + Infinitive)." },
+
+        // LECTURE 6: Weather & Will vs Going to
+        { cat: "Lec 6 - Will / Going to", en: "Look at those dark clouds! It _________ rain.", ar: "انظر للسحب الداكنة! سوف تمطر. (دليل)", options: [ {text: "is going to", ar:"توقع بدليل", correct: true}, {text: "will", ar:"توقع بلا دليل", correct: false}, {text: "shall", ar:"اقتراح", correct: false}, {text: "going to", ar:"ناقصة is", correct: false} ], explain: "لو فيه دليل واضح نستخدم is going to." },
+        { cat: "Lec 6 - Will / Going to", en: "“I forgot my pen!” – “Don’t worry, I _________ lend you mine.”", ar: "قرار سريع للمساعدة.", options: [ {text: "will", ar:"قرار سريع", correct: true}, {text: "am going to", ar:"خطة مسبقة", correct: false}, {text: "might", ar:"احتمال ضعيف", correct: false}, {text: "would", ar:"ماضي", correct: false} ], explain: "القرارات السريعة وعروض المساعدة تأخذ Will." },
+        { cat: "Lec 6 - Vocab (Weather)", en: "A severe snowstorm with high winds is a _________.", ar: "عاصفة ثلجية شديدة.", options: [ {text: "blizzard", ar:"عاصفة ثلجية", correct: true}, {text: "drought", ar:"جفاف", correct: false}, {text: "hurricane", ar:"إعصار", correct: false}, {text: "flood", ar:"فيضان", correct: false} ], explain: "Blizzard = عاصفة ثلجية قوية." },
+        { cat: "Lec 6 - Vocab (Weather)", en: "A long period with no rain causes a _________.", ar: "فترة بدون مطر تسبب جفاف.", options: [ {text: "drought", ar:"جفاف", correct: true}, {text: "flood", ar:"فيضان", correct: false}, {text: "blizzard", ar:"عاصفة ثلجية", correct: false}, {text: "heat wave", ar:"موجة حارة", correct: false} ], explain: "Drought = جفاف." },
+        { cat: "Lec 6 - Will / Going to", en: "I bought the tickets. I _________ travel to Paris tomorrow.", ar: "خطة مؤكدة تم الترتيب لها.", options: [ {text: "am going to", ar:"خطة مدروسة", correct: true}, {text: "will", ar:"قرار لحظي", correct: false}, {text: "shall", ar:"اقتراح", correct: false}, {text: "going to", ar:"تركيب خاطئ", correct: false} ], explain: "للخطط المرتبة نستخدم am/is/are going to." },
+        { cat: "Lec 6 - Vocab (Weather)", en: "When a river overflows its banks, it causes a _________.", ar: "عندما يفيض النهر، يسبب فيضاناً.", options: [ {text: "flood", ar:"فيضان", correct: true}, {text: "drought", ar:"جفاف", correct: false}, {text: "blizzard", ar:"عاصفة ثلجية", correct: false}, {text: "fog", ar:"ضباب", correct: false} ], explain: "Flood = فيضان الماء." },
+        { cat: "Lec 6 - Vocab (Environment)", en: "Improperly disposing of chemicals creates _________ waste.", ar: "النفايات الكيميائية سامة.", options: [ {text: "toxic", ar:"سام", correct: true}, {text: "recycling", ar:"إعادة تدوير", correct: false}, {text: "visual", ar:"بصري", correct: false}, {text: "noisy", ar:"مزعج", correct: false} ], explain: "Toxic waste = نفايات سامة وخطرة." },
+        { cat: "Lec 6 - Will / Going to", en: "I think my team _________ win the league this year.", ar: "أعتقد أن فريقي سيفوز (توقع مجرد بدون دليل حتمي).", options: [ {text: "will", ar:"توقع بدون دليل", correct: true}, {text: "is going to", ar:"بدليل", correct: false}, {text: "are going to", ar:"بدليل", correct: false}, {text: "shall", ar:"اقتراح", correct: false} ], explain: "بعد I think بدون أي دليل مادي نستخدم Will." },
+        { cat: "Lec 6 - Vocab (Environment)", en: "Converting waste materials into new objects is called _________.", ar: "إعادة التدوير.", options: [ {text: "recycling", ar:"إعادة تدوير", correct: true}, {text: "rubbish", ar:"قمامة", correct: false}, {text: "pollution", ar:"تلوث", correct: false}, {text: "drought", ar:"جفاف", correct: false} ], explain: "Recycling = إعادة تدوير المخلفات." },
+        { cat: "Lec 6 - Vocab (Weather)", en: "A thick cloud near the ground that makes it hard to see is _________.", ar: "الضباب.", options: [ {text: "fog", ar:"ضباب/شبورة", correct: true}, {text: "thunder", ar:"رعد", correct: false}, {text: "heat wave", ar:"موجة حارة", correct: false}, {text: "hurricane", ar:"إعصار", correct: false} ], explain: "Fog = ضباب يقلل الرؤية." },
+
+        // LECTURE 7: Conditionals
+        { cat: "Lec 7 - Conditionals", en: "If you heat ice, it _________.", ar: "الحالة الصفرية (حقائق علمية).", options: [ {text: "melts", ar:"Zero Conditional (مضارع)", correct: true}, {text: "will melt", ar:"First Conditional", correct: false}, {text: "melted", ar:"ماضي", correct: false}, {text: "would melt", ar:"Second Conditional", correct: false} ], explain: "الحقائق الثابتة: If + Present, Present." },
+        { cat: "Lec 7 - Conditionals", en: "If it rains tomorrow, we _________ at home.", ar: "الحالة الأولى (مستقبل محتمل).", options: [ {text: "will stay", ar:"First Conditional", correct: true}, {text: "stay", ar:"Zero Conditional", correct: false}, {text: "stayed", ar:"ماضي", correct: false}, {text: "would stay", ar:"Second Conditional", correct: false} ], explain: "للمستقبل: If + Present, Will + Inf." },
+        { cat: "Lec 7 - Conditionals", en: "I won't go to the party _________ you come with me.", ar: "لن أذهب إلا إذا أتيت.", options: [ {text: "unless", ar:"ما لم / إلا إذا", correct: true}, {text: "if", ar:"إذا", correct: false}, {text: "when", ar:"عندما", correct: false}, {text: "because", ar:"لأن", correct: false} ], explain: "Unless = If not." },
+        { cat: "Lec 7 - Conditionals", en: "When people visit villages, they usually _________ the peace and quiet.", ar: "عندما يزور الناس القرى (حقيقة عامة).", options: [ {text: "like", ar:"Zero Conditional", correct: true}, {text: "will like", ar:"مستقبل", correct: false}, {text: "liked", ar:"ماضي", correct: false}, {text: "are liking", ar:"مستمر", correct: false} ], explain: "عادات وحقائق: When + Present, Present." },
+        { cat: "Lec 7 - Conditionals", en: "What _________ if you fail the exam tomorrow?", ar: "ماذا سيحدث غداً؟ (مستقبل).", options: [ {text: "will happen", ar:"مستقبل بـ Will", correct: true}, {text: "happens", ar:"مضارع", correct: false}, {text: "happened", ar:"ماضي", correct: false}, {text: "would happen", ar:"حالة ثانية", correct: false} ], explain: "السؤال في الحالة الأولى: Will + Subj + Verb." },
+        { cat: "Lec 7 - Vocab", en: "Food that is grown in the area where you live is _________ food.", ar: "الطعام المزروع في منطقتك.", options: [ {text: "locally grown", ar:"مزروع محلياً", correct: true}, {text: "imported", ar:"مستورد", correct: false}, {text: "toxic", ar:"سام", correct: false}, {text: "processed", ar:"مصنع", correct: false} ], explain: "Locally grown = محلي الزراعة." },
+        { cat: "Lec 7 - Conditionals", en: "If you _________ early tomorrow, what will you do?", ar: "جملة الشرط في الحالة الأولى تكون في المضارع البسيط.", options: [ {text: "get up", ar:"مضارع بسيط", correct: true}, {text: "will get up", ar:"لا نضع will بعد if", correct: false}, {text: "got up", ar:"ماضي", correct: false}, {text: "getting up", ar:"مستمر", correct: false} ], explain: "If + Present ➔ Will." },
+        { cat: "Lec 7 - Vocab", en: "Pens, paper, and notebooks are called _________.", ar: "الأدوات المكتبية.", options: [ {text: "stationery", ar:"أدوات مكتبية", correct: true}, {text: "groceries", ar:"بقالة", correct: false}, {text: "equipment", ar:"معدات", correct: false}, {text: "hardware", ar:"أدوات صلبة", correct: false} ], explain: "Stationery = الورق والأقلام." },
+        { cat: "Lec 7 - Conditionals", en: "If people don't eat, they _________.", ar: "حقيقة بيولوجية (Zero).", options: [ {text: "die", ar:"مضارع (حقيقة)", correct: true}, {text: "will die", ar:"مستقبل", correct: false}, {text: "died", ar:"ماضي", correct: false}, {text: "would die", ar:"حالة ثانية", correct: false} ], explain: "حقائق بيولوجية = Zero conditional." },
+        { cat: "Lec 7 - Conditionals", en: "Unless he _________ hard, he won't pass.", ar: "ما لم يذاكر...", options: [ {text: "studies", ar:"مضارع (شرط)", correct: true}, {text: "will study", ar:"خطأ", correct: false}, {text: "studied", ar:"ماضي", correct: false}, {text: "study", ar:"ناقصة s للإفراد", correct: false} ], explain: "Unless + Present Simple (He studies)." },
+
+        // LECTURE 8: Sports & Articles
+        { cat: "Lec 8 - Sports Verbs", en: "I always _________ swimming on the weekends.", ar: "مع الرياضات المنتهية بـ ing نستخدم:", options: [ {text: "go", ar:"للأنشطة الحركية (ing)", correct: true}, {text: "play", ar:"للكرات", correct: false}, {text: "do", ar:"للقتال", correct: false}, {text: "make", ar:"خاطئ", correct: false} ], explain: "Go + V-ing." },
+        { cat: "Lec 8 - Sports Verbs", en: "He wants to _________ karate.", ar: "للفنون القتالية نستخدم:", options: [ {text: "do", ar:"للرياضات القتالية/التمارين", correct: true}, {text: "play", ar:"للكرات", correct: false}, {text: "go", ar:"مع ing", correct: false}, {text: "make", ar:"خاطئ", correct: false} ], explain: "Do karate / taekwondo." },
+        { cat: "Lec 8 - Sports Verbs", en: "We _________ tennis every Saturday.", ar: "ألعاب الكرة والجماعية تأخذ:", options: [ {text: "play", ar:"لألعاب الكرة", correct: true}, {text: "do", ar:"قتال", correct: false}, {text: "go", ar:"مع ing", correct: false}, {text: "make", ar:"خاطئ", correct: false} ], explain: "Play tennis / football." },
+        { cat: "Lec 8 - Articles", en: "She wants to be _________ engineer.", ar: "للوظائف تبدأ بحرف متحرك.", options: [ {text: "an", ar:"قبل المتحرك", correct: true}, {text: "a", ar:"قبل الساكن", correct: false}, {text: "the", ar:"معرفة", correct: false}, {text: "- (No article)", ar:"خاطئ", correct: false} ], explain: "An engineer." },
+        { cat: "Lec 8 - Articles", en: "_________ Mount Everest is the highest mountain.", ar: "لأسماء الجبال الفردية نستخدم:", options: [ {text: "- (No article)", ar:"لأسماء الجبال الفردية والدول", correct: true}, {text: "The", ar:"لسلاسل الجبال فقط", correct: false}, {text: "A", ar:"نكرة", correct: false}, {text: "An", ar:"نكرة", correct: false} ], explain: "الجبال الفردية (Mount Everest) لا تأخذ THE." },
+        { cat: "Lec 8 - Articles", en: "I bought a book. _________ book is very interesting.", ar: "عند الإشارة لشيء للمرة الثانية.", options: [ {text: "The", ar:"للشيء المعرف/المذكور سابقاً", correct: true}, {text: "A", ar:"للمرة الأولى", correct: false}, {text: "An", ar:"متحرك", correct: false}, {text: "- (No article)", ar:"خاطئ", correct: false} ], explain: "الشيء المذكور للمرة الثانية يصبح معرفاً بـ The." },
+        { cat: "Lec 8 - Vocab (Venues)", en: "You play tennis on a _________.", ar: "تلعب التنس في:", options: [ {text: "court", ar:"ملعب (صلب/تنس/سلة)", correct: true}, {text: "pitch", ar:"ملعب كرة عشب", correct: false}, {text: "rink", ar:"حلبة تزلج", correct: false}, {text: "course", ar:"مضمار جولف", correct: false} ], explain: "Tennis court." },
+        { cat: "Lec 8 - Vocab (Equipment)", en: "You hit a baseball with a _________.", ar: "تضرب البيسبول بـ:", options: [ {text: "bat", ar:"مضرب بيسبول/كريكت", correct: true}, {text: "racquet", ar:"مضرب تنس", correct: false}, {text: "club", ar:"مضرب جولف", correct: false}, {text: "stick", ar:"عصا هوكي", correct: false} ], explain: "Baseball bat." },
+        { cat: "Lec 8 - Articles", en: "Do you like _________ football?", ar: "مع أسماء الرياضات العامة نضع:", options: [ {text: "- (No article)", ar:"للرياضات بشكل عام", correct: true}, {text: "the", ar:"تخصيص", correct: false}, {text: "a", ar:"نكرة", correct: false}, {text: "an", ar:"نكرة", correct: false} ], explain: "Zero Article للرياضات." },
+        { cat: "Lec 8 - Articles", en: "He is _________ tallest boy in the class.", ar: "صيغة التفضيل.", options: [ {text: "the", ar:"مع Superlatives", correct: true}, {text: "a", ar:"نكرة", correct: false}, {text: "an", ar:"نكرة", correct: false}, {text: "- (No article)", ar:"خاطئ", correct: false} ], explain: "The + adj + est." },
+
+        // LECTURE 9: Urban Life & Relatives
+        { cat: "Lec 9 - Relative Clauses", en: "This is the boy _________ broke the window.", ar: "ضمير وصل للعاقل.", options: [ {text: "who", ar:"للعاقل", correct: true}, {text: "which", ar:"لغير العاقل", correct: false}, {text: "where", ar:"للمكان", correct: false}, {text: "whose", ar:"للملكية", correct: false} ], explain: "Who = يعود على العاقل (the boy)." },
+        { cat: "Lec 9 - Relative Clauses", en: "The book _________ I bought is amazing.", ar: "ضمير وصل لغير العاقل.", options: [ {text: "which", ar:"لغير العاقل (الجماد)", correct: true}, {text: "who", ar:"للعاقل", correct: false}, {text: "where", ar:"للمكان", correct: false}, {text: "whose", ar:"للملكية", correct: false} ], explain: "Which = يعود على الجماد (the book)." },
+        { cat: "Lec 9 - Relative Clauses", en: "This is the café _________ we met.", ar: "ضمير وصل للمكان.", options: [ {text: "where", ar:"للمكان", correct: true}, {text: "which", ar:"للجماد", correct: false}, {text: "who", ar:"للعاقل", correct: false}, {text: "whose", ar:"للملكية", correct: false} ], explain: "Where = يعود على المكان." },
+        { cat: "Lec 9 - Relative Clauses", en: "The man _________ car was stolen is at the police station.", ar: "ضمير وصل للملكية.", options: [ {text: "whose", ar:"للملكية (السيارة ملك الرجل)", correct: true}, {text: "who", ar:"للعاقل كفاعل", correct: false}, {text: "which", ar:"للجماد", correct: false}, {text: "where", ar:"للمكان", correct: false} ], explain: "Whose = ربط المالك بالمملوك." },
+        { cat: "Lec 9 - Vocab", en: "A city environment is described as _________.", ar: "بيئة المدينة تسمى:", options: [ {text: "urban", ar:"حضري/مدني", correct: true}, {text: "rural", ar:"ريفي", correct: false}, {text: "empty", ar:"فارغ", correct: false}, {text: "quiet", ar:"هادئ", correct: false} ], explain: "Urban = حضري (المدن)." },
+        { cat: "Lec 9 - Vocab", en: "A countryside environment is described as _________.", ar: "بيئة الريف تسمى:", options: [ {text: "rural", ar:"ريفي", correct: true}, {text: "urban", ar:"حضري", correct: false}, {text: "crowded", ar:"مزدحم", correct: false}, {text: "noisy", ar:"مزعج", correct: false} ], explain: "Rural = ريفي (القرى)." },
+        { cat: "Lec 9 - Vocab (Buildings)", en: "A building where the local government meets is the _________.", ar: "مبنى البلدية.", options: [ {text: "Town Hall", ar:"مبنى البلدية/المحافظة", correct: true}, {text: "Retirement Home", ar:"دار المسنين", correct: false}, {text: "Fire Station", ar:"محطة الإطفاء", correct: false}, {text: "Leisure Centre", ar:"مركز ترفيهي", correct: false} ], explain: "Town Hall = للعمل الحكومي." },
+        { cat: "Lec 9 - Vocab (Buildings)", en: "A place for elderly people to live and receive care is a _________.", ar: "دار المسنين.", options: [ {text: "Retirement Home", ar:"دار المسنين", correct: true}, {text: "Community Centre", ar:"مركز مجتمعي", correct: false}, {text: "Health Centre", ar:"مركز صحي", correct: false}, {text: "Concert Hall", ar:"قاعة حفلات", correct: false} ], explain: "Retirement Home = دار الرعاية." },
+        { cat: "Lec 9 - Relative Clauses", en: "I have a new phone _________ has a great camera.", ar: "الهاتف غير عاقل.", options: [ {text: "which / that", ar:"لغير العاقل", correct: true}, {text: "who", ar:"للعاقل", correct: false}, {text: "where", ar:"للمكان", correct: false}, {text: "whose", ar:"للملكية", correct: false} ], explain: "That يمكن أن تحل محل Which لغير العاقل." },
+        { cat: "Lec 9 - Vocab", en: "A place with too many people is _________.", ar: "مكان به ناس كثير جداً.", options: [ {text: "crowded", ar:"مزدحم", correct: true}, {text: "rural", ar:"ريفي", correct: false}, {text: "quiet", ar:"هادئ", correct: false}, {text: "safe", ar:"آمن", correct: false} ], explain: "Crowded = مزدحم." },
+
+        // LECTURE 10: Communication & Revision
+        { cat: "Lec 10 - Communication", en: "It’s rude to _________ your shoulders when asked a question.", ar: "من الوقاحة أن تهز كتفيك كإجابة.", options: [ {text: "shrug", ar:"يهز كتفيه (عدم اكتراث)", correct: true}, {text: "nod", ar:"يومئ بالموافقة", correct: false}, {text: "shake", ar:"يهز رأسه للرفض", correct: false}, {text: "point", ar:"يشير", correct: false} ], explain: "Shrug = هز الأكتاف لقول لا أعرف." },
+        { cat: "Lec 10 - Communication", en: "To agree with someone, you _________ your head.", ar: "للموافقة يومئ برأسه.", options: [ {text: "nod", ar:"يومئ للأمام (نعم)", correct: true}, {text: "shake", ar:"يهز رأسه (لا)", correct: false}, {text: "shrug", ar:"يهز كتفيه", correct: false}, {text: "raise", ar:"يرفع", correct: false} ], explain: "Nod = إيماءة الرأس للموافقة." },
+        { cat: "Lec 10 - Communication", en: "I didn't believe him until he _________ the story with evidence.", ar: "أكد القصة بالأدلة.", options: [ {text: "confirmed", ar:"أكد/أثبت", correct: true}, {text: "promised", ar:"وعد", correct: false}, {text: "argued", ar:"جادل", correct: false}, {text: "repeated", ar:"كرر", correct: false} ], explain: "Confirm = إثبات الحقيقة والتأكيد عليها." },
+        { cat: "Lec 10 - Communication", en: "A formal presentation by a professor is called a _________.", ar: "عرض رسمي من أستاذ جامعي.", options: [ {text: "lecture", ar:"محاضرة", correct: true}, {text: "chat", ar:"دردشة", correct: false}, {text: "debate", ar:"مناظرة", correct: false}, {text: "conversation", ar:"محادثة", correct: false} ], explain: "Lecture = محاضرة أكاديمية رسمية." },
+        { cat: "Lec 10 - Communication", en: "They _________ about politics for hours; they always disagree.", ar: "يتجادلون باستمرار.", options: [ {text: "argue", ar:"يتجادل (بخلاف)", correct: true}, {text: "promise", ar:"يعد", correct: false}, {text: "announce", ar:"يعلن", correct: false}, {text: "inform", ar:"يُخبر", correct: false} ], explain: "Argue = يجادل بسبب اختلاف الآراء." },
+        { cat: "Lec 10 - Communication", en: "The president will _________ the new law tomorrow on TV.", ar: "يعلن بشكل رسمي.", options: [ {text: "announce", ar:"يعلن (بشكل عام ورسمي)", correct: true}, {text: "reply", ar:"يرد", correct: false}, {text: "argue", ar:"يجادل", correct: false}, {text: "shrug", ar:"يهز كتفه", correct: false} ], explain: "Announce = إعلان رسمي للأخبار أو القرارات." },
+        { cat: "Lec 10 - Communication", en: "To make someone believe you, you must _________ them.", ar: "تقنعه.", options: [ {text: "convince", ar:"يُقنع", correct: true}, {text: "promise", ar:"يعد", correct: false}, {text: "repeat", ar:"يكرر", correct: false}, {text: "nod", ar:"يومئ", correct: false} ], explain: "Convince = الإقناع بالأدلة أو الكلام." },
+        { cat: "Lec 10 - Mega Revision", en: "I can't afford _________ abroad this year.", ar: "لا أستطيع تحمل تكلفة السفر. (afford + to)", options: [ {text: "to travel", ar:"Infinitive", correct: true}, {text: "traveling", ar:"Gerund", correct: false}, {text: "travel", ar:"Bare infinitive", correct: false}, {text: "traveled", ar:"ماضي", correct: false} ], explain: "Afford يأتي بعدها To + Inf." },
+        { cat: "Lec 10 - Mega Revision", en: "________ is a great way to stay healthy.", ar: "الجري. (الاسم في أول الجملة يضاف له ing)", options: [ {text: "Running", ar:"Gerund كمبتدأ", correct: true}, {text: "Run", ar:"فعل أمر", correct: false}, {text: "To running", ar:"خطأ", correct: false}, {text: "Ran", ar:"ماضي", correct: false} ], explain: "يمكن استخدام الـ Gerund كمبتدأ الجملة." },
+        { cat: "Lec 10 - Mega Revision", en: "They are looking forward to _________ you.", ar: "نتطلع إلى رؤيتك. (استثناء لقاعدة To)", options: [ {text: "seeing", ar:"Gerund", correct: true}, {text: "see", ar:"Infinitive", correct: false}, {text: "saw", ar:"ماضي", correct: false}, {text: "be seeing", ar:"مستمر", correct: false} ], explain: "تعبير Look forward to يأتي بعده (V + ing) دائماً." }
+    ];
+
+    // Duplicate logic to reach 100 questions (In reality, we cycle them to simulate the 100 question load)
+    let fullExamData = [];
+    while(fullExamData.length < 100) {
+        fullExamData = fullExamData.concat(quizData);
+    }
+    // Trim to exactly 100
+    fullExamData = fullExamData.slice(0, 100);
+
+    // Shuffle Function
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    fullExamData = shuffleArray(fullExamData);
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const quizContainer = document.getElementById('quiz-container');
+    const scoreVal = document.getElementById('score');
+    const progressVal = document.getElementById('progress');
+    const resultsScreen = document.getElementById('results-screen');
+    const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+
+    function loadQuestion() {
+        if (currentQuestionIndex >= 100) {
+            showResults();
+            return;
+        }
+
+        const q = fullExamData[currentQuestionIndex];
+        
+        // Shuffle options
+        let shuffledOptions = shuffleArray([...q.options]);
+
+        let optionsHTML = shuffledOptions.map((opt, index) => `
+            <button class="option-btn" onclick="checkAnswer(this, ${opt.correct}, '${q.explain.replace(/'/g, "\\'")}')">
+                <span>${opt.text}</span>
+                <span class="opt-ar">${opt.ar}</span>
+            </button>
+        `).join('');
+
+        quizContainer.innerHTML = `
+            <div class="quiz-card">
+                <div class="q-meta">
+                    <span>Q ${currentQuestionIndex + 1} / 100</span>
+                    <span>${q.cat}</span>
+                </div>
+                <div class="q-text-ar">${q.ar}</div>
+                <div class="q-text-en">${q.en}</div>
+                <div class="options-grid">
+                    ${optionsHTML}
+                </div>
+                <div class="feedback" id="feedback-box"></div>
+                <div class="controls">
+                    <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question ➔</button>
+                </div>
+            </div>
+        `;
+
+        progressVal.innerText = `${currentQuestionIndex + 1} / 100`;
+    }
+
+    function checkAnswer(buttonElement, isCorrect, explanation) {
+        // Disable all buttons
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(btn => btn.disabled = true);
+
+        const feedbackBox = document.getElementById('feedback-box');
+        const nextBtn = document.getElementById('next-btn');
+
+        if (isCorrect) {
+            buttonElement.classList.add('correct');
+            score++;
+            scoreVal.innerText = score;
+            feedbackBox.innerHTML = `<strong>إجابة صحيحة! 🎉</strong><br>${explanation}`;
+            feedbackBox.className = "feedback success";
+        } else {
+            buttonElement.classList.add('wrong');
+            // Find and highlight correct answer
+            buttons.forEach(btn => {
+                if(btn.getAttribute('onclick').includes('true')) {
+                    btn.classList.add('correct');
+                }
+            });
+            feedbackBox.innerHTML = `<strong>إجابة خاطئة! ❌</strong><br>${explanation}`;
+            feedbackBox.className = "feedback error";
+        }
+
+        nextBtn.style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        loadQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showResults() {
+        document.getElementById('scoreBoard').style.display = 'none';
+        quizContainer.style.display = 'none';
+        resultsScreen.style.display = 'block';
+        
+        const percentage = Math.round((score / 100) * 100);
+        finalScoreDisplay.innerText = `${percentage}%`;
+        
+        if(percentage >= 85) {
+            finalScoreDisplay.style.color = "var(--neon-green)";
+            finalScoreDisplay.style.textShadow = "0 0 20px var(--neon-green)";
+        } else if (percentage >= 50) {
+            finalScoreDisplay.style.color = "var(--neon-yellow)";
+            finalScoreDisplay.style.textShadow = "0 0 20px var(--neon-yellow)";
+        } else {
+            finalScoreDisplay.style.color = "var(--neon-red)";
+            finalScoreDisplay.style.textShadow = "0 0 20px var(--neon-red)";
+        }
+    }
+
+    // Start Quiz
+    loadQuestion();
+
+</script>
+
+</body>
+</html>

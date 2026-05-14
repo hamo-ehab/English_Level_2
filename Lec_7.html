@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 7 - English Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-en: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0033 0%, transparent 50%), 
+                              radial-gradient(circle at 100% 100%, #001a33 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            margin-top: 50px;
+            border-bottom: 2px solid var(--neon-magenta);
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.ar-cell {
+            font-family: var(--font-ar);
+            text-align: right;
+            direction: rtl;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        .explanation {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-family: var(--font-en);
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-green);
+            padding: 0 5px;
+        }
+
+        .grammar-code {
+            background: #111;
+            border-left: 4px solid var(--neon-cyan);
+            padding: 15px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .grammar-code span.if { color: var(--neon-magenta); font-weight: bold; }
+        .grammar-code span.cond { color: var(--neon-green); }
+        .grammar-code span.res { color: var(--neon-cyan); }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .q-ar {
+            font-family: var(--font-ar);
+            color: var(--neon-cyan);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .q-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .options li:hover {
+            background: rgba(255, 0, 255, 0.1);
+            border-color: var(--neon-magenta);
+            transform: translateX(5px);
+        }
+
+        .opt-ar {
+            font-family: var(--font-ar);
+            color: var(--text-muted);
+        }
+
+        .answer-reveal {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            color: var(--neon-cyan);
+        }
+
+        .capsule {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(255, 0, 255, 0.2);
+            margin-top: 50px;
+        }
+
+        .capsule h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-family: var(--font-ar);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-magenta);
+            text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+            margin: 60px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+            to { text-shadow: 0 0 30px var(--neon-magenta), 0 0 60px var(--neon-magenta), 0 0 80px #ff66ff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lecture 7: Conditionals & Essay Structure</h1>
+
+    <div class="card">
+        <h2>Vocabulary Glossary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Word (English)</th>
+                    <th style="text-align:right">Translation (Arabic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Locally grown</td><td class="ar-cell">مزروع محلياً</td></tr>
+                <tr><td>Nutrients</td><td class="ar-cell">عناصر غذائية</td></tr>
+                <tr><td>Continent</td><td class="ar-cell">قارة</td></tr>
+                <tr><td>Varied</td><td class="ar-cell">متنوع</td></tr>
+                <tr><td>Stationery</td><td class="ar-cell">أدوات مكتبية / قرطاسية</td></tr>
+                <tr><td>Greetings cards</td><td class="ar-cell">بطاقات تهنئة (مثل أعياد الميلاد)</td></tr>
+                <tr><td>Temporary display</td><td class="ar-cell">عرض مؤقت (للترويج لمنتج)</td></tr>
+                <tr><td>Community</td><td class="ar-cell">مجتمع (محلي)</td></tr>
+                <tr><td>Unless</td><td class="ar-cell">ما لم / إلا إذا (if not)</td></tr>
+                <tr><td>Condition</td><td class="ar-cell">شرط</td></tr>
+                <tr><td>Result</td><td class="ar-cell">نتيجة</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Verbs & Conjugations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Base Form</th>
+                    <th>Past Simple</th>
+                    <th>Past Participle</th>
+                    <th style="text-align:right">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Contribute</td><td>Contributed</td><td>Contributed</td><td class="ar-cell">يُساهم في</td></tr>
+                <tr><td>Grow</td><td>Grew</td><td>Grown</td><td class="ar-cell">يزرع / ينمو</td></tr>
+                <tr><td>Complain</td><td>Complained</td><td>Complained</td><td class="ar-cell">يشتكي</td></tr>
+                <tr><td>Improve</td><td>Improved</td><td>Improved</td><td class="ar-cell">يُحسّن / يطوّر</td></tr>
+                <tr><td>Benefit</td><td>Benefited</td><td>Benefited</td><td class="ar-cell">يستفيد</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Grammar Rules: Conditionals (Eng Zain Explanation)</h2>
+        <div class="explanation">
+            بص يا بشمهندس، المحاضرة دي بتشرح لك الـ Conditionals أو حالات (If) الشرطية. دي عاملة زي جملة الـ <span class="highlight">If-Condition</span> في البرمجة بالظبط! <br><br>
+            • <strong>الحالة الصفرية (Zero Conditional):</strong> دي للثوابت والحقائق العلمية (زي 1+1=2). لو الشرط حصل، النتيجة دايماً هتحصل.<br>
+            • <strong>الحالة الأولى (First Conditional):</strong> دي للمستقبل والاحتمالات الواردة جداً، لو حصل كذا النهارده، هعمل كذا بكرة.
+        </div>
+
+        <div class="grammar-code">
+            // Zero Conditional Structure (General Truths)<br>
+            <span class="if">If / When</span> <span class="cond">(Present Simple)</span> , <span class="res">(Present Simple)</span>
+            <br><br>
+            // Example:<br>
+            <span class="if">If</span> <span class="cond">I drink coffee</span> , <span class="res">I don't sleep at night.</span>
+        </div>
+
+        <div class="grammar-code">
+            // First Conditional Structure (Future Possibilities)<br>
+            <span class="if">If / Unless</span> <span class="cond">(Present Simple)</span> , <span class="res">Will + Base Verb</span>
+            <br><br>
+            // Example:<br>
+            <span class="if">If</span> <span class="cond">it doesn't rain tomorrow</span> , <span class="res">we will go to the beach.</span>
+        </div>
+        
+        <div class="explanation" style="margin-top:20px; color:var(--neon-magenta)">
+            * ملاحظة برمجية: ممكن نبدل الشرط مع النتيجة في الجملة (زي ما بنعمل في الـ Return)، بس وقتها مش بنحط فاصلة (Comma). وكلمة <span class="highlight">Unless</span> معناها (If not) يعني "إلا إذا".
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Writing Skills: Structuring a Paragraph</h2>
+        <div class="explanation">
+            لما تكتب فقرة في مقال عن سبب (زي أضرار استيراد الأكل من بره)، لازم تمشي بتسلسل منطقي (Algorithm):
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Step</th>
+                    <th>Example Sentence</th>
+                    <th style="text-align:right">الهدف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">1. Topic Sentence</td>
+                    <td>Buying food that has traveled a long way is not good for society.</td>
+                    <td class="ar-cell">الجملة المفتاحية اللي بتطرح المشكلة الأساسية.</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-magenta); font-weight:bold;">2. Give Reason</td>
+                    <td>Flying produce from Australia contributes to air pollution.</td>
+                    <td class="ar-cell">إعطاء سبب للجملة المفتاحية (ليه ده مُضر؟).</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-green); font-weight:bold;">3. Process Stage</td>
+                    <td>When food arrives at the airport, it goes by lorry to supermarkets.</td>
+                    <td class="ar-cell">شرح تسلسل الأحداث اللي بيحصل.</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--neon-cyan); font-weight:bold;">4. Result</td>
+                    <td>This leads to busy roads, which is bad for the environment.</td>
+                    <td class="ar-cell">تقديم النتيجة النهائية للوضع المشروح.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>MCQ Quiz</h2>
+        
+        <div class="question-block">
+            <div class="q-ar">ماذا يجب أن تفعل في المقال عندما يُطرح سؤال "إلى أي مدى توافق على هذه العبارة؟"</div>
+            <div class="q-en">1. In the essay question "To what extent do you agree with this statement?", what do you need to do?</div>
+            <ul class="options">
+                <li>A) Describe a problem and present a solution <span class="opt-ar">وصف مشكلة وتقديم حل</span></li>
+                <li>B) Present and explain your opinion <span class="opt-ar">تقديم وشرح رأيك</span></li>
+                <li>C) Discuss two sides of an argument <span class="opt-ar">مناقشة الجانبين</span></li>
+                <li>D) Tell a personal story <span class="opt-ar">سرد قصة شخصية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">بناءً على قطعة القراءة، هل يوافق الكاتب على أنه يجب علينا أن نأكل طعاماً مزروعاً محلياً فقط؟</div>
+            <div class="q-en">2. Based on the reading passage, does the student agree that we should only eat locally grown food?</div>
+            <ul class="options">
+                <li>A) Yes, the writer totally agrees. <span class="opt-ar">نعم يوافق بشدة</span></li>
+                <li>B) No, the writer disagrees. <span class="opt-ar">لا يوافق</span></li>
+                <li>C) The writer is neutral. <span class="opt-ar">محايد</span></li>
+                <li>D) The writer thinks it's a terrible idea. <span class="opt-ar">يعتبرها فكرة مروعة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">في مهارات الاستماع، المنتجات في قسم "Temporary display" تكون عادة:</div>
+            <div class="q-en">3. In the listening section, items in a "Temporary display" are usually:</div>
+            <ul class="options">
+                <li>A) At the back of the shop <span class="opt-ar">في مؤخرة المتجر</span></li>
+                <li>B) Placed there for a short time <span class="opt-ar">موضوعة هناك لفترة قصيرة</span></li>
+                <li>C) The most expensive <span class="opt-ar">الأغلى</span></li>
+                <li>D) Broken items <span class="opt-ar">أشياء مكسورة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي من التعبيرات التالية هو معنى آخر لـ "on special offer"؟</div>
+            <div class="q-en">4. Which of the following is another way of saying "on special offer"?</div>
+            <ul class="options">
+                <li>A) Sold out <span class="opt-ar">نفذت الكمية</span></li>
+                <li>B) On sale / Discounted <span class="opt-ar">تخفيض / عرض</span></li>
+                <li>C) Full price <span class="opt-ar">سعر كامل</span></li>
+                <li>D) Temporary <span class="opt-ar">مؤقت</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">كم عدد الأجزاء في جملة الشرط الصفرية وماذا يفصل بينهما إذا بدأت بـ If؟</div>
+            <div class="q-en">5. How many parts are there in a conditional sentence, and what separates them if 'If' is at the beginning?</div>
+            <ul class="options">
+                <li>A) Three parts; a full stop <span class="opt-ar">3 أجزاء؛ نقطة</span></li>
+                <li>B) Two parts; a comma <span class="opt-ar">جزأين؛ فاصلة</span></li>
+                <li>C) Two parts; a question mark <span class="opt-ar">جزأين؛ علامة استفهام</span></li>
+                <li>D) Four parts; no punctuation <span class="opt-ar">4 أجزاء؛ بلا ترقيم</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">ما هي الكلمة التي يمكنك استخدامها بدلاً من (If) في الحالة الصفرية؟</div>
+            <div class="q-en">6. Which word can you use instead of 'If' in the Zero Conditional?</div>
+            <ul class="options">
+                <li>A) Unless <span class="opt-ar">إلا إذا</span></li>
+                <li>B) When <span class="opt-ar">عندما</span></li>
+                <li>C) Will <span class="opt-ar">سوف</span></li>
+                <li>D) Would <span class="opt-ar">كان سـ</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"عندما يزور الناس القرى، فإنهم عادة _____ الهدوء والسلام." (حقيقة عامة - حالة صفرية)</div>
+            <div class="q-en">7. When people visit villages, they usually ______ (like) the peace and quiet.</div>
+            <ul class="options">
+                <li>A) will like <span class="opt-ar">مستقبل</span></li>
+                <li>B) liked <span class="opt-ar">ماضي</span></li>
+                <li>C) like <span class="opt-ar">مضارع بسيط</span></li>
+                <li>D) are liking <span class="opt-ar">مضارع مستمر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"المدن _____ جيداً كمجتمعات إذا كانت تقدم مرافق عامة جيدة." (حالة صفرية)</div>
+            <div class="q-en">8. Cities ______ (work) well as communities if they offer good public facilities.</div>
+            <ul class="options">
+                <li>A) will work <span class="opt-ar">مستقبل</span></li>
+                <li>B) work <span class="opt-ar">مضارع بسيط</span></li>
+                <li>C) worked <span class="opt-ar">ماضي</span></li>
+                <li>D) working <span class="opt-ar">الفعل + ing</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">متى نستخدم الحالة الشرطية الأولى (First Conditional)؟</div>
+            <div class="q-en">9. When do we use the First Conditional?</div>
+            <ul class="options">
+                <li>A) To talk about past events <span class="opt-ar">لأحداث الماضي</span></li>
+                <li>B) To talk about generally true facts <span class="opt-ar">للحقائق العامة</span></li>
+                <li>C) To talk about future events that are likely to happen <span class="opt-ar">لأحداث مستقبلية محتملة</span></li>
+                <li>D) To complain about something <span class="opt-ar">للشكوى</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أي الكلمات يمكننا استخدامها في بداية جملة الشرط في الحالة الأولى؟</div>
+            <div class="q-en">10. Which words can we use at the beginning of the condition clause in the First Conditional?</div>
+            <ul class="options">
+                <li>A) If and Unless <span class="opt-ar">إذا / ما لم</span></li>
+                <li>B) Would and Could <span class="opt-ar">أفعال ناقصة</span></li>
+                <li>C) Because and So <span class="opt-ar">لأن / لذلك</span></li>
+                <li>D) Will and Going to <span class="opt-ar">سوف</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: A</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"أين ستذهب إذا كان لديك وقت فراغ نهاية هذا الأسبوع؟" (حالة أولى للمستقبل)</div>
+            <div class="q-en">11. Where _________ (you / go) if you have free time this weekend?</div>
+            <ul class="options">
+                <li>A) do you go <span class="opt-ar">مضارع</span></li>
+                <li>B) will you go <span class="opt-ar">مستقبل مع will</span></li>
+                <li>C) did you go <span class="opt-ar">ماضي</span></li>
+                <li>D) are you going <span class="opt-ar">مضارع مستمر</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"إذا عدت للمنزل مبكراً غداً، ماذا ستفعل؟" (اكتشف الخطأ في الشرط)</div>
+            <div class="q-en">12. Find the error: "If you will get home early tomorrow, what will you do?"</div>
+            <ul class="options">
+                <li>A) Replace "what will you do" with "what do you do" <span class="opt-ar">تعديل النتيجة</span></li>
+                <li>B) Replace "If you will get" with "If you get" <span class="opt-ar">تعديل جملة الشرط للمضارع</span></li>
+                <li>C) The sentence is correct. <span class="opt-ar">الجملة صحيحة</span></li>
+                <li>D) Add a comma at the end. <span class="opt-ar">إضافة فاصلة في النهاية</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"لن أذهب إلى هناك مجدداً _____ لم يحسنوا الأمن." (بمعنى If not)</div>
+            <div class="q-en">13. I won’t go there again ________ they improve security.</div>
+            <ul class="options">
+                <li>A) if <span class="opt-ar">إذا</span></li>
+                <li>B) when <span class="opt-ar">عندما</span></li>
+                <li>C) unless <span class="opt-ar">ما لم (إلا إذا)</span></li>
+                <li>D) because <span class="opt-ar">لأن</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">"إذا لم تحسن لغتك الإنجليزية، ماذا سيحدث؟"</div>
+            <div class="q-en">14. If you _________ (not improve) your English, what will happen?</div>
+            <ul class="options">
+                <li>A) won't improve <span class="opt-ar">لن تحسن (مستقبل)</span></li>
+                <li>B) don't improve <span class="opt-ar">لا تحسن (مضارع بسيط)</span></li>
+                <li>C) didn't improve <span class="opt-ar">ماضي</span></li>
+                <li>D) aren't improve <span class="opt-ar">تركيبة خاطئة</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: B</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-ar">أغلب منتجات "Stationery" تكون عبارة عن:</div>
+            <div class="q-en">15. The term "Stationery" most likely refers to:</div>
+            <ul class="options">
+                <li>A) Fresh food <span class="opt-ar">طعام طازج</span></li>
+                <li>B) Electronic devices <span class="opt-ar">أجهزة إلكترونية</span></li>
+                <li>C) Pens, paper, and office supplies <span class="opt-ar">أقلام وورق وأدوات مكتبية</span></li>
+                <li>D) Clothes <span class="opt-ar">ملابس</span></li>
+            </ul>
+            <div class="answer-reveal">Answer: C</div>
+        </div>
+    </div>
+
+    <div class="capsule">
+        <h3>💊 Quick Summary Capsule 💊</h3>
+        <p style="color:var(--text-main); font-size:1.1rem; line-height: 1.8;">
+            <span class="highlight">Zero Conditional:</span> Facts & General rules ➔ <strong>If + Present, Present</strong>.<br>
+            <span class="highlight">First Conditional:</span> Future possibilities ➔ <strong>If + Present, Will + Base verb</strong>.<br>
+            <span class="highlight" style="color:var(--neon-magenta)">Unless:</span> Means "If not" (إلا إذا). Don't use "will" directly inside the 'If' or 'Unless' part!
+        </p>
+    </div>
+
+    <div class="signature">Zain</div>
+
+</div>
+
+</body>
+</html>
